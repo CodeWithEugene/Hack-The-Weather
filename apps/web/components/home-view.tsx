@@ -83,10 +83,10 @@ export function HomeView() {
         <Badge variant="outline" className="h-7 rounded-full px-3 font-normal">
           Hack The Weather 2026 · JKUAT
         </Badge>
-        <h1 className="font-heading max-w-5xl text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-          Conduit already measures. People still guess.
-          <br className="hidden md:block" />
-          Hatua checks the reading, then tells you how to act.
+        <h1 className="font-heading max-w-6xl text-3xl font-bold tracking-tight md:text-5xl">
+          Conduit Already Measures. People Still Guess.
+          <br />
+          Hatua Checks the Reading, Then Tells You How to Act.
         </h1>
         <p className="text-muted-foreground max-w-5xl text-base leading-relaxed md:text-lg">
           Hatua (Kiswahili for step / action) is the last mile from JKUAT’s
