@@ -23,14 +23,13 @@ export function BrandLockup({ className, priority = false }: BrandLockupProps) {
 
 export function BrandIcon({ className, alt = "Hatua" }: { className?: string; alt?: string }) {
   return (
-    <Image
+    <img
       src="/brand/hatua-icon.png"
       alt={alt}
-      width={1024}
-      height={1024}
-      sizes="40px"
+      width={24}
+      height={24}
       aria-hidden={alt === "" || undefined}
-      className={cn("size-5", className)}
+      className={cn("size-6 shrink-0 object-contain", className)}
     />
   );
 }
