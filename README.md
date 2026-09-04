@@ -182,7 +182,7 @@ HATUA_ONCE=1 .venv/bin/python apps/worker/main.py
 cd apps/web && pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Role switch: Campus | Farm | Science.
+Open [http://localhost:3000](http://localhost:3000) for Home. Now is [http://localhost:3000/now](http://localhost:3000/now). Role switch: Campus | Farm | Science.
 
 Replay the rain tip:
 
