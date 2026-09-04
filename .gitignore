@@ -7,7 +7,16 @@
 credentials.json
 .DS_Store
 __pycache__/
+.pytest_cache/
 .venv/
 venv/
 node_modules/
+.next/
+hatua.db
+*.db
+dist/
+.turbo/
+.vercel/
 
+.vercel
+.env*

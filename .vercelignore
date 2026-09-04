@@ -1,0 +1,12 @@
+.venv
+venv
+.claude-flow
+.pytest_cache
+**/__pycache__
+**/*.pyc
+apps/web/node_modules
+apps/web/.next
+apps/web/.env.local
+hatua.db
+*.db
+.git

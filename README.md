@@ -1,3 +1,13 @@
+<div align="center">
+  <table border="0" cellpadding="28">
+    <tr>
+      <td align="center" bgcolor="#121212">
+        <img src="apps/web/public/brand/hatua-lockup.png" alt="Hatua — Trust first. Then act." width="520" />
+      </td>
+    </tr>
+  </table>
+</div>
+
 # Hatua
 
 **Trusted action from Conduit@Empathy.**
@@ -13,7 +23,7 @@ This repository is our entry for [Hack The Weather 2026](https://hack-the-weathe
 | Hackathon | [Hack The Weather 2026](https://hack-the-weather.devpost.com/) · 6–9 Sep 2026 |
 | Mandatory data | [Conduit@Empathy](https://conduit.jhubafrica.com/) · CHORDS instrument **61** (Site JKUAT) |
 | Licence | [MIT](LICENSE) |
-| Status | Problem and data in place; application not built yet |
+| Status | Working prototype: trust-gated actions, replay of the organiser extract, shadcn/ui console |
 
 ---
 
@@ -29,7 +39,7 @@ In the sample week organisers shared (28 Aug–1 Sep 2026):
 
 The problem is not missing charts. It is the missing step from **trusted Conduit observations** to an **action the same day**.
 
-Full write-up: [`docs/problem.md`](docs/problem.md). Challenge notes: [`docs/info.md`](docs/info.md).
+Full write-up: [`docs/problem.md`](docs/problem.md). Architecture: [`docs/architecture.md`](docs/architecture.md). Challenge notes: [`docs/info.md`](docs/info.md).
 
 ---
 
@@ -39,8 +49,8 @@ Hatua is a **trust-gated action layer** on Conduit — not a twin of AquaTwin an
 
 1. **Trust gate** — every timestep from instrument 61 is checked before it may drive an alert (stuck gauge, cloned fields, garbage health, thermometer disagreement).
 2. **Insight** — heat / UV exposure, overnight humidity (leaf-wetness / storage risk), rain onset from gauge 1 only, and a water-demand proxy from T, RH, wind, and radiation. No fake soil moisture.
-3. **Ground vs model** — Conduit gauge 1 is used to residual-check a public forecast or satellite rainfall for Juja, so a model cannot silently overstate rain.
-4. **Action** — a recommendation card (and later SMS/WhatsApp): go / shade / hydrate; ventilate overnight; do not irrigate; do not ingest this timestep into AquaTwin.
+3. **Ground vs model** — Conduit gauge 1 is used to residual-check a public forecast for Juja, so a model cannot silently overstate rain.
+4. **Action** — a recommendation card: go / shade / hydrate; ventilate overnight; do not irrigate; do not ingest this timestep into AquaTwin.
 
 If you unplug Conduit, Hatua has nothing to say. That is intentional.
 
@@ -73,17 +83,18 @@ We **must** use Conduit@Empathy. The live station is a 3D-PAWS AWS on the FEWSNE
 
 Soil moisture, vegetation, and water quality are advertised for Conduit but are **not in this extract**. We do not invent them.
 
-Live pulls use the CHORDS HTTP API (`/api/v1/data/61.csv` or `.geojson` with `start` / `end` / `last`). Do not commit API keys; see [SECURITY.md](SECURITY.md).
+Live pulls use the CHORDS HTTP API (`/api/v1/data/61.geojson?last`). Do not commit API keys; see [SECURITY.md](SECURITY.md). The browser never calls CHORDS.
 
 ---
 
-## Features (planned)
+## What ships
 
-- Trust timeline for station 61, including the faults in the shared file
-- Three action streams: heat / UV, humidity / disease risk, rain / water demand
-- Conduit vs forecast residual for the same window
-- Live `last` observation plus the on-disk extract
-- Optional second 3D-PAWS site (e.g. KALRO Thika) as the scale path
+- **NOW** — role-aware action cards (Campus / Farm / Science) with a trust chip
+- **Trust** — verdict timeline and gauge-2 autopsy
+- **Residuals** — daily gauge-1 mm vs Open-Meteo
+- **Replay** — scrub the organiser file; `2026-08-31T03:41:33Z` shows `RAIN_ONSET`
+- **Station 61** — dossier, policy versions, CHORDS attribution
+- Versioned YAML: `packages/core/hatua_core/policy/trust_v1.yaml`, `actions_v1.yaml`
 
 ---
 
@@ -93,64 +104,111 @@ Live pulls use the CHORDS HTTP API (`/api/v1/data/61.csv` or `.geojson` with `st
 Conduit CHORDS (instrument 61) + shared CSV
         │
         ▼
-   ingest + QC / trust gate
-        │
-        ├── heat / UV action
-        ├── humidity / leaf-wetness action
-        ├── rain onset (gauge 1 only)
-        └── Conduit vs forecast residual
+   apps/worker  ingest → trust_v1 → actions_v1 → residuals
         │
         ▼
-   recommendation API + web UI
+   Postgres / SQLite
+        │
+        ▼
+   apps/api  FastAPI reads + POST /v1/replay + SSE
+        │
+        ▼
+   apps/web  Next.js + shadcn/ui (never talks to CHORDS)
 ```
+
+Domain lives in `packages/core`. Details: [`docs/architecture.md`](docs/architecture.md).
 
 ---
 
 ## Technology stack
 
-Not locked until implementation. Expected:
+- Python 3.11 · FastAPI · SQLAlchemy · PyYAML · httpx
+- Next.js 16 · React 19 · Tailwind 4 · [shadcn/ui](https://ui.shadcn.com/) · TanStack Query · Recharts (via shadcn Chart)
+- SQLite locally · Postgres in Docker Compose
+- Open-Meteo for the residual check (optional; UI still works if the model is down)
 
-- Python for ingest, QC, and decision rules
-- CHORDS CSV / GeoJSON
-- A small HTTP API and a web UI
-- Optional public forecast / satellite rainfall (Open-Meteo, CHIRPS, or similar)
-
-AI coding assistants may be used during the hackathon. Any model that ships in the product will be named here and in the Devpost submission.
+AI coding assistants were used to draft and implement this prototype. No ML model ships in the product. The team remains responsible for architecture, data handling, and the demo.
 
 ---
 
 ## Repository layout
 
 ```
-data/          Conduit extract (GeoCSV 2.0)
-docs/          Challenge brief and problem statements
-LICENSE        MIT
-README.md      This file
-CONTRIBUTING.md
-SECURITY.md
+apps/web          Next.js App Router + shadcn/ui
+apps/api          FastAPI read API
+apps/worker       CSV backfill, live poll, forecast fuse
+packages/core     hatua_core domain, policy YAML, adapters
+infra/            docker-compose, Dockerfiles, SQL migrate
+data/             organiser GeoCSV (read-only input)
+docs/             challenge brief, problem, architecture
+tests/            trust, actions, ingest, replay, API
 ```
-
-Application code will live under `src/` (and tests under `tests/`) when we start the build. Do not add secrets, `.env` files, or `.claude-flow/` output.
 
 ---
 
 ## Installation and setup
 
-The application is not runnable yet. To inspect the Conduit extract you need Python 3.11+ (standard library only):
+Python **3.11+** and Node **20+**. From the repo root:
 
 ```bash
-git clone https://github.com/<org>/Hack-The-Weather.git
-cd Hack-The-Weather
-python3 -c "import pathlib; p=pathlib.Path('data').glob('*.csv'); print(next(p).name)"
+# Python
+uv venv --python python3.11 .venv
+source .venv/bin/activate
+uv pip install -e ".[dev]"
+
+# Web
+cd apps/web
+pnpm install
+cp .env.example .env.local
+# NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-When the app exists, this section will list prerequisites, env vars (never committed), and run commands.
+Copy [`.env.example`](.env.example) for the API/worker. Never commit `.env` or CHORDS keys.
 
 ---
 
 ## Usage
 
-Until the UI ships, treat [`docs/problem.md`](docs/problem.md) as the product spec and the CSV as the demo window. A hosted demo URL and screenshots will be linked here before the 9 Sep 2026 15:00 EAT submission deadline.
+Local demo on SQLite (the path judges can run without Docker):
+
+```bash
+# 1. Backfill the organiser CSV once
+HATUA_ONCE=1 .venv/bin/python apps/worker/main.py
+
+# 2. API
+.venv/bin/uvicorn main:app --app-dir apps/api --host 127.0.0.1 --port 8000
+
+# 3. Web (another terminal)
+cd apps/web && pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). Role switch: Campus | Farm | Science.
+
+Replay the rain tip:
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/v1/replay \
+  -H 'content-type: application/json' \
+  -d '{"t":"2026-08-31T03:41:33Z","station_id":61}'
+```
+
+Then open `/replay` or `/` — NOW should show **Rain has started at gauge 1**.
+
+Docker Compose (Postgres + api + worker + web):
+
+```bash
+docker compose -f infra/docker-compose.yml up --build
+```
+
+Live CHORDS polling (optional): set `HATUA_LIVE=1`, `CHORDS_EMAIL`, and `CHORDS_API_KEY`. Omit them and the worker stays on the CSV.
+
+### Tests
+
+```bash
+.venv/bin/pytest
+```
+
+Covers trust fixtures from the real extract, action hysteresis, idempotent ingest, and replay of `2026-08-31T03:41:33Z` → `RAIN_ONSET`.
 
 ---
 
@@ -160,13 +218,13 @@ Until the UI ships, treat [`docs/problem.md`](docs/problem.md) as the product sp
 | --- | --- | --- |
 | Conduit@Empathy / JHUB Africa / JKUAT | Mandatory ground observations | [conduit.jhubafrica.com](https://conduit.jhubafrica.com/) |
 | 3D-PAWS FEWSNET CHORDS (NCAR/RAL) | Archive and live API for instrument 61 | [DOI 10.5065/D6V1236Q](https://doi.org/10.5065/D6V1236Q) |
-| Public forecast / EO (TBD) | Residual check against gauge 1 | Named in README when wired |
+| Open-Meteo | Residual check against gauge 1 | [open-meteo.com](https://open-meteo.com/) |
 
 ---
 
 ## AI usage
 
-None in a shipped model yet. This README and the research docs were drafted with AI assistance. The team remains responsible for architecture, data handling, and the demo. Significant AI use will be disclosed on Devpost as required by the official rules.
+No shipped model. Docs and implementation were drafted with AI assistance. Disclose significant AI use on Devpost as required by the official rules.
 
 ---
 

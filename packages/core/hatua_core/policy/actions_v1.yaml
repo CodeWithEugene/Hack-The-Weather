@@ -1,0 +1,14 @@
+id: actions_v1
+hysteresis_min: 45
+humidity_rh: 90
+humidity_minutes: 60
+humidity_hours_eat: [21, 22, 23, 0, 1, 2, 3, 4, 5, 6]
+heat_index_floor: 26
+heat_hours_eat: [12, 13, 14, 15, 16]
+heat_wbgt_percentile: 90
+uv_percentile: 90
+rain_gap_hours: 3
+water_rain_mm: 1.0
+action_ttl_min: 90
+fault_ttl_h: 240
+et0_proxy_floor: 0.35

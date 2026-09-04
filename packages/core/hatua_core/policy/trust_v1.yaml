@@ -1,0 +1,16 @@
+id: trust_v1
+stuck_hours: 6
+thermometer_spread_c: 1.0
+health_allowed: [0, 1, 2, 3]
+health_max: 100
+t_min_c: -5
+t_max_c: 45
+rain_tip_max_mm: 20
+stale_cadence_mult: 3
+score_penalties:
+  rg2_stuck: 0.15
+  cloned_gust_dir: 0.10
+  battery_unknown: 0.05
+  health_garbage: 0.20
+  thermometer_spread: 0.15
+  implausible_physics: 1.0

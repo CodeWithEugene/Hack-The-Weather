@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hatua
+      POSTGRES_PASSWORD: hatua
+      POSTGRES_DB: hatua
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hatua"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hatua_pg:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    environment:
+      DATABASE_URL: postgresql+psycopg://hatua:hatua@db:5432/hatua
+      WEB_ORIGIN: http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      worker:
+        condition: service_started
+
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    command: python apps/worker/main.py
+    environment:
+      DATABASE_URL: postgresql+psycopg://hatua:hatua@db:5432/hatua
+      HATUA_LIVE: "0"
+      HATUA_ONCE: "0"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ../data:/app/data:ro
+
+  web:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.web
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      - api
+
+volumes:
+  hatua_pg:
