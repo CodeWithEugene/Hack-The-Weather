@@ -183,9 +183,9 @@ def now_snapshot(session: Session, station_id: int, role: str = "campus") -> dic
     ]
     quiet = None
     if not payload:
-        quiet = "No outdoor restriction at this cursor."
+        quiet = "All clear. No outdoor restriction for this audience at this time."
         if "rg2_stuck" in flags:
-            quiet += " Gauge 2 still untrusted."
+            quiet += " Rain gauge 2 is still untrusted."
     return {
         "station_id": station_id,
         "station_name": station.name,

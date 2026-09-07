@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Suspense } from "react";
 
 import { AppShell } from "@/components/app-shell";
 import { Providers } from "@/components/providers";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import "./globals.css";
 
@@ -49,9 +47,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-          <Suspense fallback={<Skeleton className="m-6 h-24" />}>
-            <AppShell>{children}</AppShell>
-          </Suspense>
+          <AppShell>{children}</AppShell>
         </Providers>
       </body>
     </html>

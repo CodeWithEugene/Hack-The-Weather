@@ -33,23 +33,26 @@ const PILLARS = [
 const FACES = [
   {
     title: "Campus",
+    href: "/today?role=campus",
     description: "Outdoor work on and around JKUAT, decided the same day.",
     body: "Students, grounds crews, construction, sports, and clinics get a go / shade / hydrate / delay call from heat index, WBGT, UV, and rain onset. The station already records those minutes; Hatua turns them into a decision instead of looking at the sky.",
   },
   {
     title: "Farm",
+    href: "/today?role=farm",
     description: "Juja–Thika horticulture without a soil-moisture probe.",
     body: "Irrigate this evening or wait, using T, RH, wind, and radiation as a water-demand proxy. Ventilate overnight when humidity sits at 85–90%+ even on a 0 mm day. Leaf-wetness risk is real; invented soil moisture is not.",
   },
   {
     title: "Science",
+    href: "/today?role=science",
     description: "Calibration-ready flags for AquaTwin and SPACE-SI.",
     body: "Use, degrade, or discard this timestep before it enters a twin. Prefer gauge 1, ignore cloned gust direction, treat nightly health spikes as sensor faults — so satellite calibration does not eat a dead gauge.",
   },
 ];
 
 const cardHover =
-  "cursor-default transition-colors duration-200 hover:bg-primary hover:text-primary-foreground hover:ring-primary";
+  "transition-colors duration-200 hover:bg-primary hover:text-primary-foreground hover:ring-primary";
 
 const mutedHover =
   "transition-colors duration-200 group-hover/card:text-primary-foreground/80";
@@ -96,14 +99,14 @@ export function HomeView() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/now"
+            href="/today?role=campus"
             className={cn(buttonVariants({ size: "lg" }), "h-10 px-5")}
           >
-            Open Now
+            See today’s call
             <ArrowRight data-icon="inline-end" />
           </Link>
           <Link
-            href="/trust"
+            href="/why?section=health"
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
               "h-10 px-5"
@@ -122,7 +125,22 @@ export function HomeView() {
 
       <section className="grid gap-4 md:grid-cols-3">
         {FACES.map((card) => (
-          <InfoCard key={card.title} {...card} />
+          <Link key={card.title} href={card.href} className="block rounded-xl">
+            <Card className={cn(cardHover, "h-full")}>
+              <CardHeader>
+                <CardTitle>{card.title}</CardTitle>
+                <CardDescription className={mutedHover}>
+                  {card.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className={cn("text-muted-foreground", mutedHover)}>
+                {card.body}
+                <p className={cn("mt-3 text-sm font-medium", mutedHover)}>
+                  See today’s call
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </section>
     </div>

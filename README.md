@@ -182,7 +182,7 @@ HATUA_ONCE=1 .venv/bin/python apps/worker/main.py
 cd apps/web && pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for Home. Now is [http://localhost:3000/now](http://localhost:3000/now). Role switch: Campus | Farm | Science.
+Open [http://localhost:3000](http://localhost:3000) for Home. Today is [http://localhost:3000/today](http://localhost:3000/today). Why (sensor health, forecast, this station) is [http://localhost:3000/why](http://localhost:3000/why). Role: Campus | Farm | Science.
 
 Replay the rain tip:
 
@@ -192,7 +192,7 @@ curl -s -X POST http://127.0.0.1:8000/v1/replay \
   -d '{"t":"2026-08-31T03:41:33Z","station_id":61}'
 ```
 
-Then open `/replay` or `/` — NOW should show **Rain has started at gauge 1**.
+Then open `/today` — it should show **Rain has started at gauge 1**. The same clock lives on Today and talks to `POST /v1/replay`.
 
 Docker Compose (Postgres + api + worker + web):
 

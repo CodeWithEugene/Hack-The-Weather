@@ -1,12 +1,11 @@
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { TrustView } from "@/components/trust-view";
-import { Skeleton } from "@/components/ui/skeleton";
+import { searchToQuery } from "@/lib/next-query";
 
-export default function TrustPage() {
-  return (
-    <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-      <TrustView />
-    </Suspense>
-  );
+export default async function TrustRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  redirect(`/why${searchToQuery(await searchParams, { section: "health" })}`);
 }

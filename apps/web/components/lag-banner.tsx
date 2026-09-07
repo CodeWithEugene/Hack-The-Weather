@@ -11,25 +11,25 @@ export function LagBanner({
   lagS: number | null;
   source: string;
 }) {
-  const live = source === "chords" || source === "degraded";
   if (source === "degraded") {
     return (
       <Alert variant="destructive">
         <AlertTriangle />
-        <AlertTitle>Source degraded</AlertTitle>
+        <AlertTitle>Conduit poll failed</AlertTitle>
         <AlertDescription>
-          CHORDS poll failed. Showing last trusted Conduit state. Never treat this as live.
+          Showing the last trusted station state. Do not treat this as a live reading.
         </AlertDescription>
       </Alert>
     );
   }
+  const live = source === "chords";
   if (!live || lagS == null || lagS <= 180) return null;
   return (
     <Alert>
       <AlertTriangle />
-      <AlertTitle>Ingest lag {Math.round(lagS / 60)} min</AlertTitle>
+      <AlertTitle>Station is {Math.round(lagS / 60)} min behind</AlertTitle>
       <AlertDescription>
-        Last observation is older than three station cadences. Do not call this live.
+        The last Conduit observation is older than three cadences. Do not call this live.
       </AlertDescription>
     </Alert>
   );

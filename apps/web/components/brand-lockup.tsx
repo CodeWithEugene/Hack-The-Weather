@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { cn } from "@/lib/utils";
 
 type BrandLockupProps = {
@@ -7,16 +5,14 @@ type BrandLockupProps = {
   priority?: boolean;
 };
 
-export function BrandLockup({ className, priority = false }: BrandLockupProps) {
+export function BrandLockup({ className }: BrandLockupProps) {
   return (
-    <Image
+    <img
       src="/brand/hatua-lockup.png"
       alt="Hatua — Trust first. Then act."
-      width={2400}
-      height={1163}
-      priority={priority}
-      sizes="180px"
-      className={cn("h-14 w-auto md:h-16", className)}
+      width={240}
+      height={116}
+      className={cn("h-14 w-auto object-contain md:h-16", className)}
     />
   );
 }

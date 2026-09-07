@@ -1,16 +1,11 @@
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { NowView } from "@/components/now-view";
-import { Skeleton } from "@/components/ui/skeleton";
+import { searchToQuery } from "@/lib/next-query";
 
-export const metadata = {
-  title: "Now",
-};
-
-export default function NowPage() {
-  return (
-    <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-      <NowView />
-    </Suspense>
-  );
+export default async function NowRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  redirect(`/today${searchToQuery(await searchParams)}`);
 }

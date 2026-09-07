@@ -1,12 +1,11 @@
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { ReplayView } from "@/components/replay-view";
-import { Skeleton } from "@/components/ui/skeleton";
+import { searchToQuery } from "@/lib/next-query";
 
-export default function ReplayPage() {
-  return (
-    <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-      <ReplayView />
-    </Suspense>
-  );
+export default async function ReplayRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  redirect(`/today${searchToQuery(await searchParams)}`);
 }

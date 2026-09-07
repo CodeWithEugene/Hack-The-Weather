@@ -1,17 +1,11 @@
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { StationView } from "@/components/station-view";
-import { Skeleton } from "@/components/ui/skeleton";
+import { searchToQuery } from "@/lib/next-query";
 
-export default async function StationPage({
-  params,
+export default async function StationRedirect({
+  searchParams,
 }: {
-  params: Promise<{ id: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const { id } = await params;
-  return (
-    <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-      <StationView stationId={id} />
-    </Suspense>
-  );
+  redirect(`/why${searchToQuery(await searchParams, { section: "station" })}`);
 }
