@@ -1,0 +1,6 @@
+We audited Kenya's Conduit@Empathy climate station at JKUAT, found Rain Gauge 2 was dead, and built Hatua: a trust-gated action layer that sends real heat & farming decisions via Africa's Talking USSD (*384*61#) and TypeSafe Jev AI.
+
+Live app: https://hack-the-weather.vercel.app
+Code: https://github.com/CodeWithEugene/Hack-The-Weather
+
+#HackTheWeather2026 #ClimateAction #AfricaTech #BuildInPublic #TypesafeAI

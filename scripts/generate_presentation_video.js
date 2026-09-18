@@ -511,12 +511,13 @@ ${s.svg.trim()}
 </html>`);
     execSync(`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --screenshot="${pngPath}" --window-size=1920,1080 --virtual-time-budget=1000 "file://${htmlPath}" 2>/dev/null`);
 
-    // 2. Synthesize Audio Speech with macOS 'say'
-    const aiffPath = path.join(AUDIO_DIR, `${s.id}.aiff`);
+    // 2. Synthesize Audio Speech with Jev-selected Natural Kenyan Voice (en-KE-ChilembaNeural)
+    const mp3VoicePath = path.join(AUDIO_DIR, `${s.id}.mp3`);
     const wavPath = path.join(AUDIO_DIR, `${s.id}.wav`);
-    console.log(` - Synthesizing natural narration voice (Daniel)...`);
-    execSync(`say -v Daniel -r 175 "${s.narration.replace(/"/g, '\\"')}" -o "${aiffPath}"`);
-    execSync(`ffmpeg -y -i "${aiffPath}" -ar 44100 -ac 2 "${wavPath}" 2>/dev/null`);
+    console.log(` - Synthesizing authentic Kenyan neural voice (en-KE-ChilembaNeural)...`);
+    const cleanText = s.narration.replace(/"/g, '\\"');
+    execSync(`.venv/bin/edge-tts --voice en-KE-ChilembaNeural --rate="-4%" --text "${cleanText}" --write-media "${mp3VoicePath}"`);
+    execSync(`ffmpeg -y -i "${mp3VoicePath}" -ar 44100 -ac 2 "${wavPath}" 2>/dev/null`);
 
     // 3. Inspect audio duration
     const durationStr = execSync(`ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${wavPath}"`).toString().trim();
