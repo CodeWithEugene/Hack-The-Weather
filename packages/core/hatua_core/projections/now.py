@@ -16,8 +16,17 @@ from hatua_core.adapters.db import (
     StationRow,
     TrustRow,
 )
-from hatua_core.domain.action import CAMPUS_KINDS, FARM_KINDS, SCIENCE_KINDS, ActionKind
+from hatua_core.domain.action import (
+    CAMPUS_KINDS,
+    DISPATCH,
+    FARM_KINDS,
+    PERSONAS,
+    PROTOCOLS,
+    SCIENCE_KINDS,
+    ActionKind,
+)
 from hatua_core.domain.observation import JKUAT
+from hatua_core.application.jev_advisories import get_jev_contextual_advisory
 
 EAT = ZoneInfo("Africa/Nairobi")
 ROLE_KINDS = {
@@ -168,19 +177,45 @@ def now_snapshot(session: Session, station_id: int, role: str = "campus") -> dic
             lag = 0
     flags = list(trust.flags) if trust else []
     status = trust.status if trust else "reject"
-    payload = [
-        {
-            "id": a.id,
-            "kind": a.kind,
-            "headline": a.headline,
-            "until_eat": _eat(a.valid_until),
-            "valid_from": _iso(a.valid_from),
-            "trust_status": a.trust_status,
-            "who": _who(a.kind),
-            "explanation": a.explanation,
-        }
-        for a in actions
-    ]
+
+    obs_dict = {
+        "station_id": station_id,
+        "observed_at": obs.observed_at if obs else None,
+        "wbgt": obs.wbgt if obs else None,
+        "hi": obs.hi if obs else None,
+        "sh1": obs.sh1 if obs else None,
+        "rg": obs.rg if obs else None,
+        "rg2": obs.rg2 if obs else None,
+        "su1": obs.su1 if obs else None,
+        "st1": obs.st1 if obs else None,
+        "ws": obs.ws if obs else None,
+        "bt1": obs.bt1 if obs else None,
+        "mt1": obs.mt1 if obs else None,
+    } if obs else {}
+
+    payload = []
+    for idx, a in enumerate(actions):
+        expl = dict(a.explanation or {})
+        if idx == 0 and "jev" not in expl and obs_dict:
+            jev_data = get_jev_contextual_advisory(obs_dict, a.kind)
+            if jev_data:
+                expl["jev"] = jev_data
+
+        payload.append(
+            {
+                "id": a.id,
+                "kind": a.kind,
+                "headline": a.headline,
+                "until_eat": _eat(a.valid_until),
+                "valid_from": _iso(a.valid_from),
+                "trust_status": a.trust_status,
+                "who": _who(a.kind),
+                "protocol": _protocol(a.kind),
+                "persona": _persona(a.kind),
+                "dispatch_channel": _dispatch(a.kind),
+                "explanation": expl,
+            }
+        )
     quiet = None
     if not payload:
         quiet = "All clear. No outdoor restriction for this audience at this time."
@@ -223,6 +258,27 @@ def _who(kind: str) -> str:
         "RAIN_ONSET": "campus crew / grower",
         "STATION_FAULT": "science / AquaTwin",
     }.get(kind, "operator")
+
+
+def _protocol(kind: str) -> str:
+    try:
+        return PROTOCOLS.get(ActionKind(kind), "JKUAT Campus Safety Protocol")
+    except Exception:
+        return "JKUAT Campus Safety Protocol"
+
+
+def _persona(kind: str) -> str:
+    try:
+        return PERSONAS.get(ActionKind(kind), "Field Personnel")
+    except Exception:
+        return "Field Personnel"
+
+
+def _dispatch(kind: str) -> str:
+    try:
+        return DISPATCH.get(ActionKind(kind), "SMS via Africa's Talking (+254 7XX XXX XXX)")
+    except Exception:
+        return "SMS via Africa's Talking (+254 7XX XXX XXX)"
 
 
 def list_actions(session: Session, station_id: int, kind: Optional[str] = None) -> list[dict]:

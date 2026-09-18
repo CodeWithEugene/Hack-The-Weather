@@ -14,6 +14,9 @@ export type ActionPayload = {
   valid_from: string;
   trust_status: string;
   who: string;
+  protocol?: string;
+  persona?: string;
+  dispatch_channel?: string;
   explanation: Record<string, unknown>;
 };
 

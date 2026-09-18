@@ -84,6 +84,35 @@ JKUAT = Station(
     elev_m=1523.0,
 )
 
+THIKA = Station(
+    id=10,
+    site_id=11,
+    name="Kenya Kiambu KALRO Thika AWS",
+    lon=37.070000,
+    lat=-1.033300,
+    elev_m=1548.0,
+)
+
+GARISSA = Station(
+    id=15,
+    site_id=16,
+    name="Kenya Garissa Agricultural ASAL Station",
+    lon=39.658300,
+    lat=-0.453200,
+    elev_m=147.0,
+)
+
+WAJIR = Station(
+    id=22,
+    site_id=23,
+    name="Kenya Wajir Airport AWS",
+    lon=40.091700,
+    lat=1.747100,
+    elev_m=235.0,
+)
+
+KENYA_3D_PAWS_STATIONS = [JKUAT, THIKA, GARISSA, WAJIR]
+
 
 @dataclass
 class Observation:

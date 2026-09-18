@@ -20,3 +20,14 @@ dist/
 
 .vercel
 .env*
+
+# Video generation intermediates
+video/scenes/
+video/audio/
+video/concat_list.txt
+video/scene_*.mp4
+video/*.wav
+
+
+# Jev evaluation results
+.jev_*.json

@@ -59,3 +59,39 @@ def test_trust_and_residuals_series(db_url):
     assert residuals
     obs = client.get(f"/v1/stations/{JKUAT.id}/observations").json()["observations"]
     assert len(obs) < 7060
+
+
+def test_africastalking_sms_and_ussd(db_url):
+    client = _client(db_url)
+    
+    # 1. Status endpoint
+    status_res = client.get("/v1/africastalking/status")
+    assert status_res.status_code == 200
+    assert "sms_incoming_callback_url" in status_res.json()["callback_urls"]
+    assert "ussd_callback_url" in status_res.json()["callback_urls"]
+
+    # 2. Inbound SMS endpoint
+    sms_res = client.post(
+        "/v1/africastalking/sms",
+        data={"from": "+254712345678", "text": "Je kuna joto kali JKUAT?"},
+    )
+    assert sms_res.status_code == 200
+    assert "<Response>" in sms_res.text
+    assert "<Message>" in sms_res.text
+
+    # 3. Interactive USSD endpoint
+    # Menu 0
+    ussd_init = client.post(
+        "/v1/africastalking/ussd",
+        data={"sessionId": "test_sess", "serviceCode": "*384*61#", "phoneNumber": "+254712345678", "text": ""},
+    )
+    assert ussd_init.status_code == 200
+    assert ussd_init.text.startswith("CON Karibu Hatua JKUAT")
+
+    # Option 1 (Now)
+    ussd_opt1 = client.post(
+        "/v1/africastalking/ussd",
+        data={"sessionId": "test_sess", "serviceCode": "*384*61#", "phoneNumber": "+254712345678", "text": "1"},
+    )
+    assert ussd_opt1.status_code == 200
+    assert ussd_opt1.text.startswith("END HATUA")

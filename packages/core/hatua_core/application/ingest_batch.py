@@ -24,7 +24,12 @@ from hatua_core.application.issue_actions import (
     issue_for_observation,
     rain_onset,
 )
-from hatua_core.domain.observation import JKUAT, Observation, Station
+from hatua_core.domain.observation import (
+    JKUAT,
+    KENYA_3D_PAWS_STATIONS,
+    Observation,
+    Station,
+)
 from hatua_core.domain.trust import QCState
 from hatua_core.policy import action_policy, trust_policy
 
@@ -32,21 +37,22 @@ HOT = ("rg", "rg2", "st1", "bt1", "mt1", "sh1", "wbgt", "hi", "su1", "ws", "wg",
 
 
 def ensure_station(session: Session, station: Station = JKUAT) -> None:
-    row = session.get(StationRow, station.id)
-    if row is None:
-        session.add(
-            StationRow(
-                id=station.id,
-                site_id=station.site_id,
-                name=station.name,
-                lon=station.lon,
-                lat=station.lat,
-                elev_m=station.elev_m,
-                timezone=station.timezone,
-                cadence_s=station.cadence_s,
+    for st in KENYA_3D_PAWS_STATIONS:
+        row = session.get(StationRow, st.id)
+        if row is None:
+            session.add(
+                StationRow(
+                    id=st.id,
+                    site_id=st.site_id,
+                    name=st.name,
+                    lon=st.lon,
+                    lat=st.lat,
+                    elev_m=st.elev_m,
+                    timezone=st.timezone,
+                    cadence_s=st.cadence_s,
+                )
             )
-        )
-        session.flush()
+    session.flush()
 
 
 def observation_count(session: Session, station_id: int) -> int:

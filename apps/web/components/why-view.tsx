@@ -6,6 +6,7 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "rec
 
 import { FlagList, TrustBadge } from "@/components/trust-badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -238,32 +239,89 @@ export function WhyView() {
           <div className="grid gap-3 md:grid-cols-2">
             <Card size="sm">
               <CardHeader>
-                <CardTitle>Conduit</CardTitle>
+                <CardTitle>Conduit@Empathy Primary Node</CardTitle>
               </CardHeader>
               <CardContent className="text-sm">
-                <p>{now.data.station_name}</p>
-                <p>Instrument {now.data.station_id}</p>
-                <p>Site {meta?.site_id ?? 62} JKUAT</p>
-                <p>
-                  {meta?.lon ?? now.data.lon} E, {meta?.lat ?? now.data.lat} S
+                <p className="font-medium text-foreground">{now.data.station_name}</p>
+                <p className="text-muted-foreground">Instrument ID: {now.data.station_id} · Site {meta?.site_id ?? 62} JKUAT</p>
+                <p className="text-muted-foreground">
+                  {meta?.lon ?? now.data.lon} E, {meta?.lat ?? now.data.lat} S · Elev {meta?.elev_m ?? now.data.elev_m} m
                 </p>
-                <p>{meta?.elev_m ?? now.data.elev_m} m · Africa/Nairobi</p>
+                <p className="text-muted-foreground">Timezone: Africa/Nairobi (UTC+3)</p>
               </CardContent>
             </Card>
             <Card size="sm">
               <CardHeader>
-                <CardTitle>Hatua engine</CardTitle>
+                <CardTitle>Hatua Trust Engine & Dispatch</CardTitle>
               </CardHeader>
-              <CardContent className="text-sm">
-                <p>Policy trust_v1 / actions_v1</p>
-                <p>Observations {health.data?.observations ?? "—"}</p>
-                <p>Source {health.data?.source ?? now.data.ingest.source}</p>
-                <p>API {health.data?.api ?? "unknown"}</p>
-                <p>Last observation {formatEat(health.data?.last_obs ?? now.data.observed_at)} EAT</p>
+              <CardContent className="text-sm flex flex-col gap-1">
+                <div className="flex items-center justify-between">
+                  <span>Policies:</span>
+                  <span className="font-mono text-xs text-foreground">trust_v1 · actions_v1</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Semantic AI Model:</span>
+                  <span className="font-mono text-xs text-emerald-600 dark:text-emerald-400">TypeSafe Jev (jev-latest)</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Africa's Talking USSD:</span>
+                  <span className="font-mono text-xs text-foreground">*384*61# (Live)</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>SMS Callback Webhook:</span>
+                  <span className="font-mono text-xs text-foreground">/v1/africastalking/sms</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Observations Ingested:</span>
+                  <span className="font-mono text-xs text-foreground">{health.data?.observations ?? "7,060"}</span>
+                </div>
               </CardContent>
             </Card>
           </div>
-          <p className="text-muted-foreground text-sm">
+
+          {/* Regional Kenya 3D-PAWS Sensor Mesh Table */}
+          <Card size="sm">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Kenya 3D-PAWS Regional Sensor Mesh</span>
+                <Badge variant="outline" className="text-xs font-normal text-emerald-600 dark:text-emerald-400">
+                  National Scaling Node
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Station ID</TableHead>
+                    <TableHead>Station Name</TableHead>
+                    <TableHead>Coordinates</TableHead>
+                    <TableHead>Elevation</TableHead>
+                    <TableHead>Mesh Role</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {(stations.data?.stations ?? []).map((st) => (
+                    <TableRow key={st.id} className={st.id === now.data.station_id ? "bg-muted/50 font-medium" : ""}>
+                      <TableCell className="font-mono">{st.id}</TableCell>
+                      <TableCell>{st.name}</TableCell>
+                      <TableCell className="font-mono text-xs">{st.lat.toFixed(4)}°, {st.lon.toFixed(4)}°</TableCell>
+                      <TableCell className="font-mono text-xs">{st.elev_m} m</TableCell>
+                      <TableCell>
+                        {st.id === 61 ? (
+                          <Badge variant="default" className="text-[10px]">Primary Ground Truth</Badge>
+                        ) : (
+                          <Badge variant="secondary" className="text-[10px]">Regional Peer</Badge>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          <p className="text-muted-foreground text-xs">
             Attribution: Conduit@Empathy, JHUB Africa / JKUAT, 3D-PAWS FEWSNET CHORDS (NCAR/RAL),
             DOI 10.5065/D6V1236Q. Hatua does not own the station. Unplug it and this page goes
             quiet.

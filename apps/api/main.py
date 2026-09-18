@@ -71,6 +71,13 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    try:
+        from apps.api.routers.africastalking import router as at_router
+    except ModuleNotFoundError:
+        from routers.africastalking import router as at_router
+
+    application.include_router(at_router)
+
     @application.get("/health")
     def health():
         db = SessionLocal()

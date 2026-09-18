@@ -10,3 +10,9 @@ apps/web/.env.local
 hatua.db
 *.db
 .git
+video/
+.agents/
+node_modules/
+**/node_modules/
+.jev_*.json
+

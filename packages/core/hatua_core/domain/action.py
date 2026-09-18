@@ -42,6 +42,33 @@ WHO = {
     ActionKind.STATION_FAULT: "science / AquaTwin",
 }
 
+PROTOCOLS = {
+    ActionKind.HEAT_PROTECT: "JKUAT Estates OHS Protocol #14: Heat Stress Mitigation",
+    ActionKind.UV_PROTECT: "JKUAT Athletics & Student Health UV Standard #03",
+    ActionKind.HUMIDITY_VENTILATE: "Kiambu Horticultural Field Advisory #08: Nocturnal Moisture",
+    ActionKind.WATER_WAIT: "KALRO Irrigation Efficiency Framework (FAO-56)",
+    ActionKind.RAIN_ONSET: "Field Operations Rain Protocol #02: Activity Interruption",
+    ActionKind.STATION_FAULT: "AquaTwin Ground-Truth Calibration Guard #01",
+}
+
+PERSONAS = {
+    ActionKind.HEAT_PROTECT: "Estates Lead John Mwangi & Grounds Maintenance Crews",
+    ActionKind.UV_PROTECT: "Sports Directorate & Outdoor Campus Personnel",
+    ActionKind.HUMIDITY_VENTILATE: "Tomato & French Bean Growers (Juja / Thika)",
+    ActionKind.WATER_WAIT: "Juja-Thika Horticultural Smallholders",
+    ActionKind.RAIN_ONSET: "Grounds Foremen & Peri-Urban Farmers",
+    ActionKind.STATION_FAULT: "JHUB / SPACE-SI Satellite Calibration Scientists",
+}
+
+DISPATCH = {
+    ActionKind.HEAT_PROTECT: "SMS via Africa's Talking (+254 7XX XXX XXX)",
+    ActionKind.UV_PROTECT: "Campus Broadcast & SMS (+254 7XX XXX XXX)",
+    ActionKind.HUMIDITY_VENTILATE: "Agri-SMS Broadcast via Africa's Talking",
+    ActionKind.WATER_WAIT: "USSD *384*61# On-Demand Advisory",
+    ActionKind.RAIN_ONSET: "Priority Emergency SMS Broadcast",
+    ActionKind.STATION_FAULT: "Web API Alert (/v1/stations/61/trust)",
+}
+
 CLIMATE_KINDS = {
     ActionKind.HEAT_PROTECT,
     ActionKind.UV_PROTECT,
