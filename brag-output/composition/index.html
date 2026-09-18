@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
+    <title>Hatua - Brag Launch Video</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * {
@@ -10,27 +11,128 @@
         padding: 0;
         box-sizing: border-box;
       }
-      html,
-      body {
+      html, body {
         margin: 0;
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        background: #0a0a0a;
+        background: #09090b;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #f4f4f5;
       }
       #root {
-        width: 100%;
-        height: 100%;
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        background: #09090b;
+      }
+      .scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1920px;
+        height: 1080px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        opacity: 0;
+        padding: 80px 120px;
       }
-      #title {
-        color: #f4f4f5;
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
+      .badge {
+        padding: 10px 24px;
+        border-radius: 9999px;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+      .badge-danger {
+        background: #450a0a;
+        color: #f87171;
+        border: 1px solid #dc2626;
+      }
+      .badge-success {
+        background: #064e3b;
+        color: #34d399;
+        border: 1px solid #059669;
+      }
+      .badge-cyan {
+        background: #082f49;
+        color: #38bdf8;
+        border: 1px solid #0284c7;
+      }
+      .headline {
+        font-size: 80px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        text-align: center;
+        line-height: 1.05;
+        margin-bottom: 24px;
+      }
+      .subtext {
+        font-size: 28px;
+        color: #a1a1aa;
+        text-align: center;
+        max-width: 1200px;
+        line-height: 1.4;
+      }
+      .grid-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 48px;
+        width: 100%;
+        max-width: 1400px;
+      }
+      .card {
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 20px;
+        padding: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .phone-mock {
+        background: #18181b;
+        border: 3px solid #3f3f46;
+        border-radius: 36px;
+        width: 600px;
+        padding: 36px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .ussd-screen {
+        background: #09090b;
+        border: 1px solid #27272a;
+        border-radius: 16px;
+        padding: 24px;
+        font-family: monospace;
+        font-size: 20px;
+        line-height: 1.5;
+        color: #38bdf8;
+      }
+      .sms-bubble {
+        background: #064e3b;
+        border: 1px solid #059669;
+        border-radius: 16px;
+        padding: 20px;
+        font-size: 20px;
+        color: #ecfdf5;
+        line-height: 1.4;
+      }
+      .brand-title {
+        font-size: 130px;
+        font-weight: 900;
+        letter-spacing: -4px;
+        background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 12px;
       }
     </style>
   </head>
@@ -39,15 +141,146 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
+      data-duration="18"
       data-width="1920"
       data-height="1080"
     >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+      <audio
+        id="bg-music"
+        data-start="0"
+        data-duration="18"
+        data-track-index="10"
+        data-volume="0.35"
+        src="assets/music.mp3"
+      ></audio>
+
+      <!-- SCENE 1: The Hardware Autopsy (0.0s - 4.8s) -->
+      <div id="scene-1" class="scene clip" data-start="0" data-duration="4.8" data-track-index="0">
+        <div id="badge-1" class="badge badge-danger">CONDUIT STATION 61 AUTOPSY</div>
+        <h1 id="title-1" class="headline">0.4 mm of rain in 5 days.<br/><span style="color: #f87171;">Rain Gauge 2 is dead.</span></h1>
+        <p id="sub-1" class="subtext">While traditional weather dashboards average corrupted data, Hatua diagnoses physical sensor faults first.</p>
+        <div id="stats-1" class="grid-cards" style="max-width: 1000px;">
+          <div class="card" style="border-left: 6px solid #dc2626;">
+            <span style="font-size: 16px; font-weight: 700; color: #f87171;">GAUGE 2 ANOMALY</span>
+            <span style="font-size: 36px; font-weight: 800;">0.0 mm Always</span>
+            <span style="font-size: 16px; color: #a1a1aa;">Secondary rain sensor failed silent</span>
+          </div>
+          <div class="card" style="border-left: 6px solid #f59e0b;">
+            <span style="font-size: 16px; font-weight: 700; color: #fbbf24;">HEALTH FLAG SPIKES</span>
+            <span style="font-size: 36px; font-weight: 800;">33,501,705</span>
+            <span style="font-size: 16px; color: #a1a1aa;">Nightly corruption codes filtered</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 2: The Trust Gate & Decision Cards (4.8s - 9.5s) -->
+      <div id="scene-2" class="scene clip" data-start="4.8" data-duration="4.7" data-track-index="1">
+        <div id="badge-2" class="badge badge-success">TRUST FIRST. THEN ACT.</div>
+        <h1 id="title-2" class="headline">Action Over Passive Charts</h1>
+        <p id="sub-2" class="subtext">Deterministic operational protocols grounded in JKUAT campus policies and Kiambu agriculture.</p>
+        <div id="cards-2" class="grid-cards">
+          <div class="card" style="border-left: 6px solid #f59e0b;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 16px; font-weight: 700; color: #fbbf24;">ESTATES-HEAT-01</span>
+              <span style="font-size: 14px; background: #27272a; padding: 4px 12px; border-radius: 9999px;">Campus Grounds</span>
+            </div>
+            <span style="font-size: 30px; font-weight: 800;">Mandatory Heat &amp; UV Rest</span>
+            <span style="font-size: 18px; color: #d4d4d8;">UV Index 11.2 exceeds safe threshold. Suspend direct sun outdoor mowing.</span>
+          </div>
+          <div class="card" style="border-left: 6px solid #38bdf8;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 16px; font-weight: 700; color: #38bdf8;">HORT-TOMATO-01</span>
+              <span style="font-size: 14px; background: #27272a; padding: 4px 12px; border-radius: 9999px;">Juja Smallholder</span>
+            </div>
+            <span style="font-size: 30px; font-weight: 800;">Ventilate Greenhouses</span>
+            <span style="font-size: 18px; color: #d4d4d8;">Rain onset imminent. Open side vents to prevent blight; postpone foliar spray.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 3: Africa's Talking & Jev AI (9.5s - 14.2s) -->
+      <div id="scene-3" class="scene clip" data-start="9.5" data-duration="4.7" data-track-index="2">
+        <div id="badge-3" class="badge badge-cyan">LAST-MILE KENYA DISPATCH</div>
+        <h1 id="title-3" class="headline" style="font-size: 64px;">Live USSD *384*61# &amp; TypeSafe Jev AI</h1>
+        <div style="display: flex; gap: 48px; align-items: center; margin-top: 24px;">
+          <div id="phone-3" class="phone-mock">
+            <div style="display: flex; justify-content: space-between; font-size: 14px; color: #71717a;">
+              <span>AFRICA'S TALKING</span>
+              <span>LIVE USSD</span>
+            </div>
+            <div class="ussd-screen">
+              CON Karibu Hatua JKUAT<br/>
+              1. Hali ya Sasa (Advisory)<br/>
+              2. Wafanyakazi Campus<br/>
+              3. Wakulima Juja<br/>
+              4. Data Trust Gate
+            </div>
+          </div>
+          <div id="sms-3" style="display: flex; flex-direction: column; gap: 24px; max-width: 580px;">
+            <div class="sms-bubble">
+              <strong style="display: block; font-size: 16px; margin-bottom: 6px; color: #a7f3d0;">INBOUND SMS ADVISORY (SWAHILI)</strong>
+              "HATUA: Mvua bado ni kidogo sana (0.4mm). Kipima mvua namba 2 kimeharibika. Usifungulie maji ya mifereji bado."
+            </div>
+            <div class="card" style="background: #111115; border-color: #3b82f6;">
+              <span style="font-size: 16px; font-weight: 700; color: #60a5fa;">TYPESAFE JEV SYSTEM ONE</span>
+              <span style="font-size: 18px; color: #e2e8f0;">Semantic classification &amp; 160-char SMS generation with zero hallucination.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 4: Outro & Scaling (14.2s - 18.0s) -->
+      <div id="scene-4" class="scene clip" data-start="14.2" data-duration="3.8" data-track-index="3">
+        <h1 id="brand-4" class="brand-title">HATUA</h1>
+        <h2 id="tagline-4" style="font-size: 44px; font-weight: 700; color: #ffffff; margin-bottom: 18px;">Trust First. Then Act.</h2>
+        <p id="deploy-4" style="font-size: 26px; color: #38bdf8; font-family: monospace; margin-bottom: 32px;">
+          https://hack-the-weather.vercel.app
+        </p>
+        <div id="footer-4" style="display: flex; gap: 32px; font-size: 18px; color: #a1a1aa;">
+          <span>✓ Conduit@Empathy JKUAT Main Campus</span>
+          <span>·</span>
+          <span>✓ Regional 3D-PAWS: Thika · Garissa · Wajir</span>
+          <span>·</span>
+          <span>✓ JHUB Africa 2026</span>
+        </div>
+      </div>
     </div>
+
     <script>
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+
+      // SCENE 1 (0.0s - 4.8s)
+      tl.to("#scene-1", { opacity: 1, duration: 0.4 }, 0.0)
+        .from("#badge-1", { scale: 0.8, opacity: 0, duration: 0.4, ease: "back.out(1.7)" }, 0.1)
+        .from("#title-1", { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.3)
+        .from("#sub-1", { opacity: 0, duration: 0.5 }, 0.7)
+        .from("#stats-1 .card", { y: 40, opacity: 0, stagger: 0.15, duration: 0.6, ease: "power3.out" }, 1.0)
+        .to("#scene-1", { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 4.45);
+
+      // SCENE 2 (4.8s - 9.5s)
+      tl.to("#scene-2", { opacity: 1, duration: 0.4 }, 4.8)
+        .from("#badge-2", { scale: 0.8, opacity: 0, duration: 0.4, ease: "back.out(1.7)" }, 4.9)
+        .from("#title-2", { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" }, 5.1)
+        .from("#sub-2", { opacity: 0, duration: 0.5 }, 5.4)
+        .from("#cards-2 .card", { y: 40, opacity: 0, stagger: 0.2, duration: 0.6, ease: "power3.out" }, 5.7)
+        .to("#scene-2", { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 9.15);
+
+      // SCENE 3 (9.5s - 14.2s)
+      tl.to("#scene-3", { opacity: 1, duration: 0.4 }, 9.5)
+        .from("#badge-3", { scale: 0.8, opacity: 0, duration: 0.4, ease: "back.out(1.7)" }, 9.6)
+        .from("#title-3", { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" }, 9.8)
+        .from("#phone-3", { x: -50, opacity: 0, duration: 0.7, ease: "power3.out" }, 10.1)
+        .from("#sms-3 > div", { x: 50, opacity: 0, stagger: 0.2, duration: 0.7, ease: "power3.out" }, 10.4)
+        .to("#scene-3", { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 13.85);
+
+      // SCENE 4 (14.2s - 18.0s)
+      tl.to("#scene-4", { opacity: 1, duration: 0.5 }, 14.2)
+        .from("#brand-4", { scale: 0.85, opacity: 0, duration: 0.7, ease: "back.out(1.7)" }, 14.3)
+        .from("#tagline-4", { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, 14.7)
+        .from("#deploy-4", { opacity: 0, duration: 0.5 }, 15.1)
+        .from("#footer-4", { opacity: 0, duration: 0.6 }, 15.5);
+
+      window.__timelines = window.__timelines || {};
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>
