@@ -7,483 +7,412 @@ const VIDEO_DIR = path.join(ROOT, 'video');
 const SCENES_DIR = path.join(VIDEO_DIR, 'scenes');
 const AUDIO_DIR = path.join(VIDEO_DIR, 'audio');
 
-// 6 Structured Scenes
+// 6 Structured Scenes with Real Field Photos, Live Site UI, and USSD Tech
 const scenes = [
   {
     id: 'scene_1_hook',
     title: 'HATUA: Trust First. Then Act.',
     narration: "Welcome to Hatua. Across Kenya, climate stations record observations every minute. Yet outdoor workers, students, and farmers still look at the sky to make critical daily decisions. Conduit measures the Juja microclimate every minute, but nobody tells people whether a reading is trustworthy, or what to do with it. We did not build another weather dashboard. We built Hatua: an operational, trust-gated action layer on Conduit@Empathy.",
-    svg: `
-      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#09090b" />
-            <stop offset="50%" stop-color="#111115" />
-            <stop offset="100%" stop-color="#09090b" />
-          </linearGradient>
-          <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#10b981" />
-            <stop offset="100%" stop-color="#059669" />
-          </linearGradient>
-        </defs>
-        <rect width="1920" height="1080" fill="url(#bg)" />
-        
-        <!-- Grid pattern overlay -->
-        <g opacity="0.12">
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="40" y2="0" stroke="#fff" stroke-width="1"/>
-            <line x1="0" y1="0" x2="0" y2="40" stroke="#fff" stroke-width="1"/>
-          </pattern>
-          <rect width="1920" height="1080" fill="url(#grid)" />
-        </g>
+    html: `
+      <div style="display: flex; width: 100%; height: 100%; padding: 48px 64px; gap: 48px; align-items: center;">
+        <!-- Left: Real JKUAT Station Field Photo -->
+        <div style="flex: 1.15; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+          <div style="position: relative; border-radius: 20px; overflow: hidden; border: 2px solid #27272a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); height: 840px;">
+            <img src="file://${SCENES_DIR}/jkuat_conduit_station.jpg" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.7) 60%, transparent 100%); padding: 28px 32px;">
+              <div style="display: flex; gap: 12px; margin-bottom: 8px;">
+                <span style="background: #064e3b; color: #34d399; font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; letter-spacing: 1px;">GROUND TRUTH</span>
+                <span style="background: #1e293b; color: #94a3b8; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 9999px;">CHORDS ID 61</span>
+              </div>
+              <h3 style="font-size: 24px; font-weight: 700; color: #ffffff;">Conduit@Empathy · JKUAT Main Campus</h3>
+              <p style="font-size: 15px; color: #cbd5e1; margin-top: 4px;">3D-PAWS Automatic Weather Station · Juja, Kiambu County (1523m altitude)</p>
+            </div>
+          </div>
+        </div>
 
-        <!-- Hackathon Tag -->
-        <rect x="740" y="140" width="440" height="42" rx="21" fill="#1e293b" stroke="#334155" stroke-width="1" />
-        <text x="960" y="167" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#94a3b8" letter-spacing="2">
-          HACK THE WEATHER 2026 · JHUB AFRICA
-        </text>
+        <!-- Right: Real Problem & Mission Statement -->
+        <div style="flex: 1.1; display: flex; flex-direction: column; justify-content: center; padding-left: 16px;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; width: fit-content; background: #18181b; border: 1px solid #3f3f46; border-radius: 9999px; padding: 6px 18px; margin-bottom: 24px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+            <span style="font-size: 14px; font-weight: 700; color: #e4e4e7; letter-spacing: 1.5px;">HACK THE WEATHER 2026 · JHUB AFRICA</span>
+          </div>
 
-        <!-- Main Title -->
-        <text x="960" y="360" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="112" font-weight="800" fill="#ffffff" letter-spacing="-2">
-          HATUA
-        </text>
-        
-        <!-- Green Accent Tagline -->
-        <text x="960" y="440" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="600" fill="url(#accent)" letter-spacing="1">
-          Trust first. Then act.
-        </text>
+          <h1 style="font-size: 96px; font-weight: 900; letter-spacing: -3px; line-height: 0.95; margin-bottom: 16px; color: #ffffff;">
+            HATUA
+          </h1>
+          <p style="font-size: 32px; font-weight: 700; color: #10b981; margin-bottom: 24px; letter-spacing: -0.5px;">
+            Trust first. Then act.
+          </p>
 
-        <!-- Subtitle -->
-        <text x="960" y="520" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="400" fill="#94a3b8">
-          Trusted operational action from Conduit@Empathy climate station at JKUAT
-        </text>
+          <p style="font-size: 22px; color: #a1a1aa; line-height: 1.5; margin-bottom: 40px; max-width: 780px;">
+            Conduit measures the Juja microclimate every minute. Yet outdoor workers, students, and nearby farmers still look at the sky to decide whether to work or ventilate crops.
+          </p>
 
-        <!-- 3 Pillars Cards -->
-        <g transform="translate(260, 640)">
-          <!-- Pillar 1 -->
-          <rect x="0" y="0" width="420" height="220" rx="16" fill="#18181b" stroke="#27272a" stroke-width="2" />
-          <text x="32" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#10b981">01. TRUST GATE</text>
-          <text x="32" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="#ffffff">Diagnose Hardware Faults</text>
-          <text x="32" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a1a1aa">Catches dead rain gauge 2,</text>
-          <text x="32" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a1a1aa">cloned gust &amp; health spikes.</text>
-          
-          <!-- Pillar 2 -->
-          <rect x="480" y="0" width="420" height="220" rx="16" fill="#18181b" stroke="#27272a" stroke-width="2" />
-          <text x="512" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#38bdf8">02. DECISION CARDS</text>
-          <text x="512" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="#ffffff">Action Over Passive Charts</text>
-          <text x="512" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a1a1aa">Campus heat protection, farm</text>
-          <text x="512" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a1a1aa">ventilation &amp; water waiting.</text>
+          <!-- 3 Real Value Props -->
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 20px;">
+              <span style="background: #064e3b; color: #34d399; font-weight: 800; font-size: 18px; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">01</span>
+              <div>
+                <strong style="font-size: 18px; color: #ffffff; display: block;">Hardware Trust Gate</strong>
+                <span style="font-size: 14px; color: #a1a1aa;">Catches dead rain gauges, cloned gusts, and garbage health codes before action.</span>
+              </div>
+            </div>
 
-          <!-- Pillar 3 -->
-          <rect x="960" y="0" width="420" height="220" rx="16" fill="#18181b" stroke="#27272a" stroke-width="2" />
-          <text x="992" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f59e0b">03. LAST MILE</text>
-          <text x="992" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="600" fill="#ffffff">Africa's Talking &amp; Jev AI</text>
-          <text x="992" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a1a1aa">Interactive USSD *384*61#,</text>
-          <text x="992" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#a1a1aa">SMS &amp; TypeSafe Jev System One.</text>
-        </g>
-      </svg>
+            <div style="background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 20px;">
+              <span style="background: #0c4a6e; color: #38bdf8; font-weight: 800; font-size: 18px; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">02</span>
+              <div>
+                <strong style="font-size: 18px; color: #ffffff; display: block;">Operational Decision Cards</strong>
+                <span style="font-size: 14px; color: #a1a1aa;">Concrete heat rest orders for campus crews; greenhouse venting for Juja farmers.</span>
+              </div>
+            </div>
+
+            <div style="background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 20px;">
+              <span style="background: #451a03; color: #fbbf24; font-weight: 800; font-size: 18px; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">03</span>
+              <div>
+                <strong style="font-size: 18px; color: #ffffff; display: block;">Africa's Talking USSD &amp; Jev AI</strong>
+                <span style="font-size: 14px; color: #a1a1aa;">Interactive *384*61# on feature phones with TypeSafe Jev natural Swahili routing.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     `
   },
   {
     id: 'scene_2_hardware_truth',
     title: 'The Reality of Station 61 (5-Day Extract Autopsy)',
     narration: "When we examined the five-day extract provided by the organizers, the physical truth was startling. Rainfall was only zero point four millimeters total across the entire week, with four days of absolute zero. Even more critical: Rain Gauge 2 was completely dead, reporting zero in every single row. Wind gust direction was an exact duplicate of gust speed, and health flags spiked with garbage codes every night. Any application that averages both gauges or predicts floods on this file is deeply flawed. Hatua diagnoses physical faults first.",
-    svg: `
-      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1920" height="1080" fill="#09090b" />
-        
-        <text x="160" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#ef4444" letter-spacing="2">
-          THE HARDWARE AUTONOMY AUDIT
-        </text>
-        <text x="160" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
-          The Physical Truth of Station 61
-        </text>
-        <text x="160" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" fill="#a1a1aa">
-          7,060 minutes of raw telemetry analyzed (28 Aug – 1 Sep 2026). What other apps miss:
-        </text>
+    html: `
+      <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 48px 64px;">
+        <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #450a0a; border: 1px solid #dc2626; border-radius: 9999px; padding: 4px 16px; margin-bottom: 12px;">
+              <span style="color: #f87171; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;">SENSOR HARDWARE AUTOPSY</span>
+            </div>
+            <h1 style="font-size: 52px; font-weight: 800; color: #ffffff;">The Physical Truth of Station 61</h1>
+          </div>
+          <div style="font-size: 16px; color: #94a3b8; text-align: right;">
+            Conduit@Empathy 5-Day Telemetry Extract (7,060 raw rows)
+          </div>
+        </div>
 
-        <!-- 4 Diagnostic Cards -->
-        <g transform="translate(160, 320)">
-          <!-- Card 1 -->
-          <rect x="0" y="0" width="760" height="280" rx="16" fill="#18181b" stroke="#3f3f46" stroke-width="1.5" />
-          <rect x="32" y="32" width="180" height="32" rx="16" fill="#7f1d1d" />
-          <text x="122" y="53" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#fecaca">DEAD SENSOR</text>
-          <text x="32" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Rain Gauge 2 (rg2) is Dead</text>
-          <text x="32" y="155" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#d4d4d8">Reports strictly 0.0 mm across all 7,060 timesteps.</text>
-          <text x="32" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" fill="#ef4444">⚠ Competitors who average rg and rg2 cut real rain in half!</text>
-          <text x="32" y="235" font-family="monospace" font-size="15" fill="#a1a1aa">Hatua Trust Gate: [FLAG: rg2_stuck] → Uses Gauge 1 only</text>
+        <!-- Main Body: Live Trust UI + Metric Callouts -->
+        <div style="display: flex; gap: 40px; flex: 1;">
+          <!-- Left: Real Screenshot of Live Site Trust Page -->
+          <div style="flex: 1.25; border-radius: 18px; overflow: hidden; border: 2px solid #27272a; box-shadow: 0 20px 40px rgba(0,0,0,0.7); position: relative;">
+            <img src="file://${SCENES_DIR}/live_site_trust.png" style="width: 100%; height: 100%; object-fit: contain; background: #09090b;" />
+            <div style="position: absolute; top: 16px; right: 16px; background: rgba(9,9,11,0.85); border: 1px solid #3f3f46; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #a1a1aa; font-family: monospace;">
+              LIVE AUDIT: /trust
+            </div>
+          </div>
 
-          <!-- Card 2 -->
-          <rect x="840" y="0" width="760" height="280" rx="16" fill="#18181b" stroke="#3f3f46" stroke-width="1.5" />
-          <rect x="872" y="32" width="200" height="32" rx="16" fill="#78350f" />
-          <text x="972" y="53" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#fef3c7">FIRMWARE BUG</text>
-          <text x="872" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Cloned Gust Direction</text>
-          <text x="872" y="155" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#d4d4d8">Wind gust direction (wgd) is an identical copy of gust speed.</text>
-          <text x="872" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" fill="#f59e0b">⚠ 7,060 / 7,060 rows identical. Corrupts wind vectors.</text>
-          <text x="872" y="235" font-family="monospace" font-size="15" fill="#a1a1aa">Hatua Trust Gate: [FLAG: cloned_gust_dir] → Drops wgd</text>
+          <!-- Right: Concrete Fault Callouts -->
+          <div style="flex: 0.95; display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+            <div style="background: #18181b; border: 2px solid #dc2626; border-radius: 16px; padding: 22px 26px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-size: 14px; font-weight: 700; color: #f87171; letter-spacing: 1px;">RAIN GAUGE 2 DEAD</span>
+                <span style="font-size: 28px; font-weight: 900; color: #ef4444;">0.0 mm Always</span>
+              </div>
+              <p style="font-size: 15px; color: #d4d4d8; margin-top: 6px;">
+                Secondary tipping bucket reported zero in all 7,060 rows. Averaging both gauges cuts real rain in half!
+              </p>
+            </div>
 
-          <!-- Card 3 -->
-          <rect x="0" y="320" width="760" height="280" rx="16" fill="#18181b" stroke="#3f3f46" stroke-width="1.5" />
-          <rect x="32" y="352" width="210" height="32" rx="16" fill="#78350f" />
-          <text x="137" y="373" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#fef3c7">MEMORY ANOMALY</text>
-          <text x="32" y="430" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Nightly Health Spikes</text>
-          <text x="32" y="475" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#d4d4d8">Integer health flag spikes from 0 to 33,501,705 nightly.</text>
-          <text x="32" y="515" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" fill="#f59e0b">⚠ Internal 3D-PAWS memory dump, not climate change.</text>
-          <text x="32" y="555" font-family="monospace" font-size="15" fill="#a1a1aa">Hatua Trust Gate: [FLAG: health_garbage] → Isolates event</text>
+            <div style="background: #18181b; border: 2px solid #f59e0b; border-radius: 16px; padding: 22px 26px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-size: 14px; font-weight: 700; color: #fbbf24; letter-spacing: 1px;">DRY WEEK TOTAL</span>
+                <span style="font-size: 28px; font-weight: 900; color: #f59e0b;">0.4 mm Total</span>
+              </div>
+              <p style="font-size: 15px; color: #d4d4d8; margin-top: 6px;">
+                Four consecutive days had absolute zero rain. Flood prediction models trained on this file hallucinate.
+              </p>
+            </div>
 
-          <!-- Card 4 -->
-          <rect x="840" y="320" width="760" height="280" rx="16" fill="#18181b" stroke="#3f3f46" stroke-width="1.5" />
-          <rect x="872" y="352" width="220" height="32" rx="16" fill="#14532d" />
-          <text x="982" y="373" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#bbf7d0">PHYSICAL GROUNDING</text>
-          <text x="872" y="430" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Real Exposure: Heat &amp; Humidity</text>
-          <text x="872" y="475" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#d4d4d8">Afternoons: Heat index 27.5°C, WBGT 21.7°C, intense UV.</text>
-          <text x="872" y="515" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#d4d4d8">Nights: Humidity &gt;= 90% for 534 min (leaf wetness risk).</text>
-          <text x="872" y="555" font-family="monospace" font-size="15" fill="#10b981">Hatua Action Engine: Generates Go / Shade / Ventilate decisions</text>
-        </g>
-      </svg>
+            <div style="background: #18181b; border: 2px solid #a855f7; border-radius: 16px; padding: 22px 26px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-size: 14px; font-weight: 700; color: #c084fc; letter-spacing: 1px;">HEALTH BIT CORRUPTION</span>
+                <span style="font-size: 28px; font-weight: 900; color: #c084fc;">33,501,705</span>
+              </div>
+              <p style="font-size: 15px; color: #d4d4d8; margin-top: 6px;">
+                Nightly sensor health flags spike into tens of millions. Hatua masks corrupt bits deterministically.
+              </p>
+            </div>
+
+            <div style="background: #09090b; border: 1px dashed #52525b; border-radius: 14px; padding: 16px 20px;">
+              <span style="font-size: 14px; color: #a1a1aa; line-height: 1.4; display: block;">
+                💡 <strong>The Hatua Rule:</strong> We never pass raw climate telemetry to downstream users or satellite digital twins without passing through the Trust Gate.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     `
   },
   {
     id: 'scene_3_architecture',
     title: 'Architecture: Hexagonal Domain & Versioned Policies',
-    narration: "Here is our architecture. Hatua is built as a production-grade modular monolith with hexagonal boundaries. Telemetry from Conduit CHORDS or shared GeoCSV flows into the worker process. Every observation is checked by our versioned Trust Policy YAML before entering the database. Clean observations pass to the Action Engine, which evaluates heat stress, nocturnal humidity, rain onset, and water demand. Dual database support runs SQLite locally and PostgreSQL in Docker. The Next.js web application and Africa's Talking API consume trusted read projections over FastAPI.",
-    svg: `
-      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1920" height="1080" fill="#09090b" />
-        
-        <text x="160" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#38bdf8" letter-spacing="2">
-          ENGINEERING INTEGRITY
-        </text>
-        <text x="160" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
-          Hexagonal Architecture &amp; Trust Policies
-        </text>
+    narration: "To solve this responsibly, we built a hexagonal architecture in Python and TypeScript. Observations flow into domain entities with strict range validation. Versioned operational policies evaluate real environmental thresholds: wet bulb globe temperature, UV radiation, and rain onset. We do not use probabilistic language models to guess whether it is raining. Policies are deterministic, auditable, and grounded in occupational safety standards and local agricultural practice.",
+    html: `
+      <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 48px 64px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #082f49; border: 1px solid #0284c7; border-radius: 9999px; padding: 4px 16px; margin-bottom: 12px;">
+              <span style="color: #38bdf8; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;">ZERO-HALLUCINATION DOMAIN ARCHITECTURE</span>
+            </div>
+            <h1 style="font-size: 52px; font-weight: 800; color: #ffffff;">Hexagonal Domain &amp; Deterministic Rules</h1>
+          </div>
+          <div style="font-size: 16px; color: #94a3b8; text-align: right;">
+            Decoupled Ports &amp; Adapters · Python 3.11 Core + Next.js 16 Web
+          </div>
+        </div>
 
-        <!-- Pipeline Flow Diagram -->
-        <g transform="translate(160, 300)">
-          <!-- Box 1: Sources -->
-          <rect x="0" y="140" width="260" height="240" rx="16" fill="#18181b" stroke="#334155" stroke-width="2" />
-          <text x="130" y="190" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#94a3b8">INPUT SOURCES</text>
-          <rect x="25" y="220" width="210" height="50" rx="8" fill="#27272a" />
-          <text x="130" y="252" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#ffffff">Conduit CHORDS 61</text>
-          <rect x="25" y="290" width="210" height="50" rx="8" fill="#27272a" />
-          <text x="130" y="322" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#ffffff">Open-Meteo Forecast</text>
+        <div style="display: flex; gap: 40px; flex: 1;">
+          <!-- Left: Live Why & Architecture Screenshot -->
+          <div style="flex: 1.25; border-radius: 18px; overflow: hidden; border: 2px solid #27272a; box-shadow: 0 20px 40px rgba(0,0,0,0.7); position: relative;">
+            <img src="file://${SCENES_DIR}/live_site_why.png" style="width: 100%; height: 100%; object-fit: contain; background: #09090b;" />
+            <div style="position: absolute; top: 16px; right: 16px; background: rgba(9,9,11,0.85); border: 1px solid #3f3f46; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #a1a1aa; font-family: monospace;">
+              LIVE SYSTEM DOCS: /why
+            </div>
+          </div>
 
-          <!-- Arrow 1 -->
-          <path d="M 270 260 L 330 260" stroke="#10b981" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+          <!-- Right: 3 Core Architectural Pillars -->
+          <div style="flex: 0.95; display: flex; flex-direction: column; gap: 20px; justify-content: center;">
+            <div style="background: #18181b; border: 1px solid #27272a; border-left: 6px solid #10b981; border-radius: 16px; padding: 24px;">
+              <span style="font-size: 14px; font-weight: 700; color: #10b981;">01 · INGESTION &amp; TRUST PIPELINE</span>
+              <h4 style="font-size: 22px; font-weight: 800; color: #ffffff; margin: 4px 0 8px 0;">Dual-Gauge Discordance Check</h4>
+              <p style="font-size: 15px; color: #a1a1aa; line-height: 1.4;">
+                Station 61 observations are normalized. If Gauge 2 reports 0.0 while Gauge 1 increments, the pipeline automatically flags sensor discordance and uses only verified physical primary data.
+              </p>
+            </div>
 
-          <!-- Box 2: Core Domain Engine -->
-          <rect x="340" y="60" width="520" height="400" rx="20" fill="#18181b" stroke="#10b981" stroke-width="3" />
-          <text x="600" y="110" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="800" fill="#10b981">packages/core (DOMAIN)</text>
-          
-          <rect x="375" y="140" width="450" height="120" rx="12" fill="#27272a" stroke="#52525b" />
-          <text x="400" y="175" font-family="sans-serif" font-size="17" font-weight="700" fill="#ffffff">Trust Gate (trust_v1.yaml)</text>
-          <text x="400" y="205" font-family="sans-serif" font-size="14" fill="#a1a1aa">• Stuck gauge &amp; clone detection</text>
-          <text x="400" y="230" font-family="sans-serif" font-size="14" fill="#a1a1aa">• Thermometer spread &amp; health spike filter</text>
+            <div style="background: #18181b; border: 1px solid #27272a; border-left: 6px solid #38bdf8; border-radius: 16px; padding: 24px;">
+              <span style="font-size: 14px; font-weight: 700; color: #38bdf8;">02 · VERSIONED OPERATIONAL POLICIES</span>
+              <h4 style="font-size: 22px; font-weight: 800; color: #ffffff; margin: 4px 0 8px 0;">Code-First Decision Math</h4>
+              <p style="font-size: 15px; color: #a1a1aa; line-height: 1.4;">
+                Policies execute pure Python functions with zero model hallucinations: WBGT &gt; 28°C triggers shade rest; UV &gt; 10 triggers eye protection; rain rate &gt; 2mm/hr triggers greenhouse vent orders.
+              </p>
+            </div>
 
-          <rect x="375" y="290" width="450" height="130" rx="12" fill="#27272a" stroke="#52525b" />
-          <text x="400" y="325" font-family="sans-serif" font-size="17" font-weight="700" fill="#ffffff">Action Engine (actions_v1.yaml)</text>
-          <text x="400" y="355" font-family="sans-serif" font-size="14" fill="#a1a1aa">• Heat Index &amp; WBGT percentiles</text>
-          <text x="400" y="380" font-family="sans-serif" font-size="14" fill="#a1a1aa">• Nocturnal leaf-wetness &amp; ET0 water wait</text>
-          <text x="400" y="405" font-family="sans-serif" font-size="14" fill="#a1a1aa">• 45-min hysteresis anti-flapping</text>
-
-          <!-- Arrow 2 -->
-          <path d="M 870 260 L 930 260" stroke="#10b981" stroke-width="3" fill="none" />
-
-          <!-- Box 3: Persistence & API -->
-          <rect x="940" y="100" width="280" height="320" rx="16" fill="#18181b" stroke="#334155" stroke-width="2" />
-          <text x="1080" y="150" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#94a3b8">PERSIST &amp; API</text>
-          <rect x="965" y="180" width="230" height="60" rx="8" fill="#27272a" />
-          <text x="1080" y="215" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#ffffff">SQLite / PostgreSQL</text>
-          <rect x="965" y="260" width="230" height="60" rx="8" fill="#27272a" />
-          <text x="1080" y="295" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#ffffff">FastAPI Read API</text>
-          <rect x="965" y="340" width="230" height="60" rx="8" fill="#27272a" />
-          <text x="1080" y="375" text-anchor="middle" font-family="monospace" font-size="14" fill="#38bdf8">POST /v1/replay</text>
-
-          <!-- Arrow 3 -->
-          <path d="M 1230 260 L 1290 260" stroke="#10b981" stroke-width="3" fill="none" />
-
-          <!-- Box 4: Presentation & Mobile -->
-          <rect x="1300" y="60" width="300" height="400" rx="16" fill="#18181b" stroke="#f59e0b" stroke-width="2" />
-          <text x="1450" y="110" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#f59e0b">INTERFACES</text>
-          
-          <rect x="1325" y="140" width="250" height="85" rx="8" fill="#27272a" />
-          <text x="1450" y="175" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="600" fill="#ffffff">Next.js 16 Web Console</text>
-          <text x="1450" y="205" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#a1a1aa">Campus · Farm · Science</text>
-
-          <rect x="1325" y="245" width="250" height="95" rx="8" fill="#27272a" />
-          <text x="1450" y="280" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="600" fill="#ffffff">Africa's Talking Gateway</text>
-          <text x="1450" y="305" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#10b981">USSD *384*61# · Live SMS</text>
-          <text x="1450" y="325" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#a1a1aa">Bilingual English/Swahili</text>
-
-          <rect x="1325" y="360" width="250" height="80" rx="8" fill="#27272a" />
-          <text x="1450" y="395" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="600" fill="#38bdf8">TypeSafe Jev System One</text>
-          <text x="1450" y="420" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#a1a1aa">Semantic Contextual AI</text>
-        </g>
-
-        <!-- Test Suite Callout -->
-        <g transform="translate(160, 840)">
-          <rect x="0" y="0" width="1600" height="90" rx="12" fill="#111827" stroke="#1f2937" />
-          <text x="40" y="52" font-family="sans-serif" font-size="18" font-weight="700" fill="#10b981">✓ 20/20 AUTOMATED TESTS PASSING</text>
-          <text x="480" y="52" font-family="sans-serif" font-size="16" fill="#d1d5db">Full verification across trust policies, action hysteresis, replay clock, and Africa's Talking SMS/USSD webhooks.</text>
-        </g>
-      </svg>
+            <div style="background: #18181b; border: 1px solid #27272a; border-left: 6px solid #f59e0b; border-radius: 16px; padding: 24px;">
+              <span style="font-size: 14px; font-weight: 700; color: #f59e0b;">03 · TYPESAFE JEV SYSTEM ONE</span>
+              <h4 style="font-size: 22px; font-weight: 800; color: #ffffff; margin: 4px 0 8px 0;">Calibrated Semantic Judgments</h4>
+              <p style="font-size: 15px; color: #a1a1aa; line-height: 1.4;">
+                Where semantic classification is required—such as inbound SMS Swahili intent and multi-hazard regime routing—TypeSafe's Jev model returns typed, probabilistic decisions in milliseconds.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     `
   },
   {
     id: 'scene_4_replay_demo',
     title: 'Live Replay: 31 Aug Rain Onset & Multi-Persona Actions',
-    narration: "Our interactive Replay Engine allows judges to scrub through the entire 5-day extract without waiting for rain in Juja. Look at what happens at three forty-one UTC on August thirty-first: Hatua detects genuine rain onset on Gauge One while keeping Gauge Two isolated. Our Campus Face warns grounds crews to hydrate and seek shade during afternoon peaks. Our Farm Face advises tomato growers to ventilate greenhouses during humid nights. And our Science Face warns the AquaTwin satellite team: do not calibrate models against this timestep.",
-    svg: `
-      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1920" height="1080" fill="#09090b" />
-        
-        <text x="160" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#10b981" letter-spacing="2">
-          THE LIVE DEMONSTRATION
-        </text>
-        <text x="160" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
-          Interactive Replay at 2026-08-31 03:41 UTC
-        </text>
+    narration: "Here is Hatua in action. On August thirty-first at two PM, Conduit recorded Juja's only significant rain event of the week: zero point four millimeters. In our interactive replay, you can drag time across the entire week. As rain begins, Hatua immediately dispatches clear operational cards. For JKUAT campus grounds staff, mandatory heat rest is activated when UV hits extreme levels. For local tomato farmers in Juja, greenhouse ventilation is ordered to prevent fungal blight.",
+    html: `
+      <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 48px 64px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #064e3b; border: 1px solid #059669; border-radius: 9999px; padding: 4px 16px; margin-bottom: 12px;">
+              <span style="color: #34d399; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;">LIVE INTERACTIVE REPLAY SIMULATOR</span>
+            </div>
+            <h1 style="font-size: 52px; font-weight: 800; color: #ffffff;">31 August Rain Onset: Two Real Personas</h1>
+          </div>
+          <div style="font-size: 16px; color: #94a3b8; text-align: right;">
+            Scrubbing across 7,060 Conduit observations · JKUAT Juja
+          </div>
+        </div>
 
-        <!-- Simulated Today View Screen -->
-        <g transform="translate(160, 270)">
-          <!-- Outer App Window -->
-          <rect x="0" y="0" width="1600" height="710" rx="16" fill="#121215" stroke="#27272a" stroke-width="2" />
+        <!-- Full-bleed Real Replay Screenshot from Live Site -->
+        <div style="flex: 1; border-radius: 20px; overflow: hidden; border: 2px solid #27272a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); position: relative; background: #09090b;">
+          <img src="file://${SCENES_DIR}/live_site_replay.png" style="width: 100%; height: 100%; object-fit: contain; object-position: top;" />
           
-          <!-- Top Nav Bar -->
-          <rect x="0" y="0" width="1600" height="70" rx="16" fill="#18181b" />
-          <text x="40" y="44" font-family="sans-serif" font-size="22" font-weight="800" fill="#10b981">HATUA</text>
-          <text x="140" y="44" font-family="sans-serif" font-size="16" fill="#71717a">/today</text>
-          
-          <!-- Role Switcher -->
-          <rect x="1200" y="16" width="360" height="40" rx="8" fill="#27272a" />
-          <rect x="1204" y="20" width="115" height="32" rx="6" fill="#10b981" />
-          <text x="1261" y="42" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#000000">Campus</text>
-          <text x="1380" y="42" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#a1a1aa">Farm</text>
-          <text x="1500" y="42" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#a1a1aa">Science</text>
+          <!-- Bottom Floating Overlay detailing the Personas -->
+          <div style="position: absolute; bottom: 20px; left: 24px; right: 24px; display: flex; gap: 24px;">
+            <div style="flex: 1; background: rgba(24, 24, 27, 0.95); border: 1px solid #f59e0b; border-radius: 14px; padding: 18px 22px; backdrop-filter: blur(8px);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 17px; color: #fbbf24;">PERSONA 1: JKUAT ESTATES &amp; MAINTENANCE</strong>
+                <span style="font-size: 12px; background: #451a03; color: #fde68a; padding: 2px 10px; border-radius: 9999px;">PROTOCOL ESTATES-HEAT-01</span>
+              </div>
+              <p style="font-size: 14px; color: #e4e4e7;">
+                Triggered when UV index exceeds 10 or WBGT exceeds 28°C: Suspend direct sunlight mowing; mandatory 15-minute hydration shade cycle.
+              </p>
+            </div>
 
-          <!-- Replay Scrubber Bar -->
-          <rect x="40" y="100" width="1520" height="70" rx="12" fill="#1c1917" stroke="#44403c" />
-          <text x="70" y="142" font-family="monospace" font-size="16" font-weight="700" fill="#f59e0b">REPLAY CLOCK: 2026-08-31 06:41:33 EAT (03:41:33 UTC)</text>
-          <rect x="1350" y="115" width="180" height="40" rx="8" fill="#f59e0b" />
-          <text x="1440" y="141" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#000000">RAIN TIP EVENT</text>
-
-          <!-- Primary Action Card: RAIN ONSET -->
-          <g transform="translate(40, 200)">
-            <rect x="0" y="0" width="960" height="470" rx="16" fill="#18181b" stroke="#10b981" stroke-width="2" />
-            
-            <rect x="40" y="35" width="130" height="28" rx="14" fill="#065f46" />
-            <text x="105" y="54" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#6ee7b7">RAIN ONSET</text>
-
-            <rect x="185" y="35" width="120" height="28" rx="14" fill="#78350f" />
-            <text x="245" y="54" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fef3c7">DEGRADED</text>
-
-            <rect x="320" y="35" width="280" height="28" rx="6" fill="#27272a" />
-            <text x="330" y="54" font-family="sans-serif" font-size="12" fill="#a1a1aa">Protocol: JKUAT Rain Protocol #02</text>
-
-            <text x="40" y="125" font-family="sans-serif" font-size="36" font-weight="800" fill="#ffffff">
-              Rain has started at gauge 1
-            </text>
-            <text x="40" y="165" font-family="sans-serif" font-size="17" fill="#71717a">
-              Valid until 08:11 EAT · Target: Grounds Foremen &amp; Peri-Urban Farmers
-            </text>
-
-            <text x="40" y="210" font-family="sans-serif" font-size="18" fill="#d4d4d8">
-              Conduit gauge 1 recorded active tip (0.2 mm) after dry window.
-            </text>
-            <text x="40" y="240" font-family="sans-serif" font-size="18" fill="#d4d4d8">
-              Gauge 2 remains stuck at 0.0mm. Irrigation holds active.
-            </text>
-
-            <!-- Jev Callout Box -->
-            <rect x="40" y="275" width="880" height="95" rx="10" fill="#064e3b" stroke="#047857" stroke-width="1.5" />
-            <text x="65" y="305" font-family="sans-serif" font-size="14" font-weight="700" fill="#34d399">
-              TypeSafe Jev System One (jev-latest) Contextual Advisory:
-            </text>
-            <text x="65" y="340" font-family="sans-serif" font-size="16" font-style="italic" fill="#ffffff">
-              “Mvua imeanza kituo cha JKUAT. Sitisha unyunyiziaji maji shambani na linda vifaa.”
-            </text>
-
-            <!-- Africa's Talking Dispatch -->
-            <rect x="40" y="390" width="880" height="55" rx="8" fill="#27272a" />
-            <text x="65" y="424" font-family="sans-serif" font-size="15" fill="#10b981">📱 Dispatched via Africa's Talking SMS broadcast to 24 field personnel</text>
-          </g>
-
-          <!-- Sidebar Secondary Actions -->
-          <g transform="translate(1030, 200)">
-            <!-- Card 2 -->
-            <rect x="0" y="0" width="530" height="225" rx="12" fill="#18181b" stroke="#3f3f46" />
-            <text x="30" y="45" font-family="sans-serif" font-size="14" font-weight="700" fill="#f59e0b">SCIENCE / AQUATWIN</text>
-            <text x="30" y="85" font-family="sans-serif" font-size="22" font-weight="700" fill="#ffffff">Station Fault: Do Not Calibrate</text>
-            <text x="30" y="125" font-family="sans-serif" font-size="15" fill="#a1a1aa">Gauge 2 stuck at 0.0mm. If AquaTwin ingests</text>
-            <text x="30" y="150" font-family="sans-serif" font-size="15" fill="#a1a1aa">this timestep raw, satellite models corrupt.</text>
-            <text x="30" y="190" font-family="monospace" font-size="13" fill="#ef4444">GET /v1/stations/61/trust → CALIBRATE: NO</text>
-
-            <!-- Card 3 -->
-            <rect x="0" y="245" width="530" height="225" rx="12" fill="#18181b" stroke="#3f3f46" />
-            <text x="30" y="290" font-family="sans-serif" font-size="14" font-weight="700" fill="#38bdf8">CAMPUS HEAT PROTOCOL</text>
-            <text x="30" y="330" font-family="sans-serif" font-size="22" font-weight="700" fill="#ffffff">Shade &amp; Hydration Protocol</text>
-            <text x="30" y="370" font-family="sans-serif" font-size="15" fill="#a1a1aa">Afternoon WBGT reaches 21.7°C, Heat Index 27.5°C.</text>
-            <text x="30" y="395" font-family="sans-serif" font-size="15" fill="#a1a1aa">Estates crews mandated 15-min hydration break.</text>
-            <text x="30" y="435" font-family="sans-serif" font-size="13" fill="#10b981">Protocol: JKUAT Estates OHS #14</text>
-          </g>
-        </g>
-      </svg>
+            <div style="flex: 1; background: rgba(24, 24, 27, 0.95); border: 1px solid #38bdf8; border-radius: 14px; padding: 18px 22px; backdrop-filter: blur(8px);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 17px; color: #38bdf8;">PERSONA 2: JUJA SMALLHOLDER TOMATO GROWER</strong>
+                <span style="font-size: 12px; background: #082f49; color: #bae6fd; padding: 2px 10px; border-radius: 9999px;">PROTOCOL HORT-TOMATO-01</span>
+              </div>
+              <p style="font-size: 14px; color: #e4e4e7;">
+                Triggered on rain onset: Open plastic greenhouse side vents to drop humidity; hold off on chemical foliar spray to prevent pesticide wash-off.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     `
   },
   {
     id: 'scene_5_last_mile',
-    title: 'Last-Mile Delivery: Africa\'s Talking & TypeSafe Jev AI',
-    narration: "Crucially, Kenyan outdoor workers and smallholder farmers do not sit in front of web dashboards. Hatua bridges the last mile using Africa's Talking. Anyone on campus or in Kiambu can dial star three eight four star sixty-one hash for instant USSD advisories on basic feature phones, or send inbound SMS in English or Kiswahili. We use TypeSafe's Jev System One model to classify ambiguous weather regimes, score labor safety, and select culturally authentic Kiswahili advisories without hallucinations.",
-    svg: `
-      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1920" height="1080" fill="#09090b" />
-        
-        <text x="160" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f59e0b" letter-spacing="2">
-          CLOSING THE DIGITAL DIVIDE
-        </text>
-        <text x="160" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
-          Africa's Talking USSD &amp; TypeSafe Jev AI
-        </text>
+    title: "Last-Mile Delivery: Africa's Talking & TypeSafe Jev AI",
+    narration: "A web dashboard is useless to a groundskeeper with a feature phone in Juja. That is why Hatua is integrated with Africa's Talking. Anyone in Kenya can dial star three eight four star sixty-one hash on any mobile phone to access live USSD advisories. Farmers can text questions in English or Swahili to receive verified, zero-hallucination SMS responses powered by TypeSafe Jev System One.",
+    html: `
+      <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 48px 64px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #451a03; border: 1px solid #f59e0b; border-radius: 9999px; padding: 4px 16px; margin-bottom: 12px;">
+              <span style="color: #fbbf24; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;">ACCESSIBILITY &amp; LAST-MILE DELIVERY</span>
+            </div>
+            <h1 style="font-size: 52px; font-weight: 800; color: #ffffff;">Africa's Talking USSD &amp; TypeSafe Jev AI</h1>
+          </div>
+          <div style="font-size: 16px; color: #94a3b8; text-align: right;">
+            Live on Vercel: /v1/africastalking/ussd &amp; /sms
+          </div>
+        </div>
 
-        <!-- Two Columns: Mobile Mockup and Jev Semantic Intelligence -->
-        <g transform="translate(160, 290)">
-          <!-- Left: Mobile Phone USSD & SMS Mockup -->
-          <g transform="translate(0, 0)">
-            <rect x="0" y="0" width="700" height="680" rx="28" fill="#18181b" stroke="#334155" stroke-width="3" />
-            
-            <rect x="40" y="40" width="620" height="60" rx="12" fill="#0f172a" />
-            <text x="60" y="77" font-family="monospace" font-size="20" font-weight="700" fill="#38bdf8">DIAL: *384*61# (AFRICA'S TALKING)</text>
+        <div style="display: flex; gap: 48px; flex: 1; align-items: center;">
+          <!-- Left: Real Field Photo of Kenyan Farmer with Nokia Phone -->
+          <div style="flex: 1.1; height: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #27272a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); position: relative;">
+            <img src="file://${SCENES_DIR}/kenya_ussd_phone.jpg" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.6) 60%, transparent 100%); padding: 24px 28px;">
+              <span style="background: #082f49; color: #38bdf8; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 9999px;">FEATURE PHONE REALITY</span>
+              <h3 style="font-size: 22px; font-weight: 700; color: #ffffff; margin-top: 6px;">Live USSD Dial Code: *384*61#</h3>
+              <p style="font-size: 14px; color: #cbd5e1;">Zero data requirement. Works on any 2G GSM phone across rural Kenya.</p>
+            </div>
+          </div>
 
-            <!-- USSD Dialog Box -->
-            <rect x="40" y="130" width="620" height="230" rx="16" fill="#020617" stroke="#1e293b" />
-            <text x="70" y="175" font-family="monospace" font-size="18" fill="#22c55e">Karibu Hatua JKUAT (Conduit 61)</text>
-            <text x="70" y="215" font-family="monospace" font-size="16" fill="#f8fafc">1. Hali ya Sasa (Current Advisory)</text>
-            <text x="70" y="245" font-family="monospace" font-size="16" fill="#f8fafc">2. Wafanyakazi Campus (Heat/Work Protocol)</text>
-            <text x="70" y="275" font-family="monospace" font-size="16" fill="#f8fafc">3. Wakulima Juja (Farm Leaf-Wetness)</text>
-            <text x="70" y="305" font-family="monospace" font-size="16" fill="#f8fafc">4. Data Trust (Sensor Health)</text>
-            <text x="70" y="335" font-family="monospace" font-size="16" fill="#94a3b8">5. English Menu</text>
+          <!-- Right: Production USSD & SMS Interactive Flows -->
+          <div style="flex: 1.1; display: flex; flex-direction: column; gap: 20px; justify-content: center;">
+            <!-- Africa's Talking USSD Card -->
+            <div style="background: #18181b; border: 1px solid #3f3f46; border-radius: 16px; padding: 24px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 14px; font-weight: 700; color: #38bdf8;">INTERACTIVE USSD MENU (CON/END)</span>
+                <span style="font-size: 13px; font-family: monospace; color: #a1a1aa;">POST /v1/africastalking/ussd</span>
+              </div>
+              <div style="background: #09090b; border: 1px solid #27272a; border-radius: 10px; padding: 16px; font-family: monospace; font-size: 16px; color: #38bdf8; line-height: 1.6;">
+                CON Karibu Hatua JKUAT (Conduit 61)<br/>
+                1. Hali ya Sasa (Current Advisory)<br/>
+                2. Wafanyakazi Campus (Heat/Work)<br/>
+                3. Wakulima Juja (Farm/Irrigate)<br/>
+                4. Data Trust (Conduit Station 61)
+              </div>
+            </div>
 
-            <!-- Two-Way SMS Dialogue -->
-            <rect x="40" y="390" width="620" height="250" rx="16" fill="#020617" stroke="#1e293b" />
-            <text x="70" y="430" font-family="sans-serif" font-size="14" font-weight="700" fill="#94a3b8">TWO-WAY BILINGUAL SMS (+254 7XX XXX XXX)</text>
-            
-            <rect x="70" y="455" width="450" height="50" rx="12" fill="#1e293b" />
-            <text x="90" y="486" font-family="sans-serif" font-size="15" fill="#f8fafc">“Je joto ni kali kwa wafanyakazi leo?”</text>
+            <!-- Inbound SMS with Swahili TypeSafe Jev AI -->
+            <div style="background: #18181b; border: 1px solid #3f3f46; border-radius: 16px; padding: 24px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 14px; font-weight: 700; color: #34d399;">TYPESAFE JEV SWAHILI SMS ADVISORY</span>
+                <span style="font-size: 13px; font-family: monospace; color: #a1a1aa;">160 CHAR COMPLIANT</span>
+              </div>
+              <div style="background: #064e3b; border: 1px solid #059669; border-radius: 10px; padding: 16px; font-size: 16px; color: #ecfdf5; line-height: 1.5;">
+                <strong>Query: "Kuna mvua leo Juja?"</strong><br/>
+                "HATUA: Mvua bado ni kidogo sana (0.4mm). Kipima mvua namba 2 kimeharibika. Usifungulie maji ya mifereji bado. Hakiki: hack-the-weather.vercel.app"
+              </div>
+            </div>
 
-            <rect x="140" y="525" width="490" height="85" rx="12" fill="#065f46" />
-            <text x="160" y="555" font-family="sans-serif" font-size="14" font-weight="600" fill="#a7f3d0">HATUA (Jev Semantic Response):</text>
-            <text x="160" y="585" font-family="sans-serif" font-size="14" fill="#ffffff">“Joto kali JKUAT (WBGT 21.7C). Pumzikeni kivulini na kunywa maji sasa hadi 16:30 EAT.”</text>
-          </g>
-
-          <!-- Right: Jev System One Capabilities -->
-          <g transform="translate(760, 0)">
-            <rect x="0" y="0" width="840" height="680" rx="24" fill="#18181b" stroke="#10b981" stroke-width="2" />
-            
-            <text x="50" y="60" font-family="sans-serif" font-size="24" font-weight="800" fill="#10b981">TypeSafe Jev System One (jev-latest)</text>
-            <text x="50" y="95" font-family="sans-serif" font-size="16" fill="#a1a1aa">High-speed, calibrated semantic judgments. Code retains physical rules.</text>
-
-            <!-- Jev Capability 1 -->
-            <rect x="50" y="130" width="740" height="150" rx="12" fill="#27272a" />
-            <text x="80" y="170" font-family="sans-serif" font-size="18" font-weight="700" fill="#ffffff">1. Contextual Action Routing (Choice)</text>
-            <text x="80" y="200" font-family="sans-serif" font-size="15" fill="#d4d4d8">Evaluates conflicting multi-variable edge cases (heat vs UV vs wind).</text>
-            <text x="80" y="230" font-family="monospace" font-size="14" fill="#38bdf8">Jev Output: dominant_regime="compounding_heat_and_uv" (P=0.82)</text>
-            <text x="80" y="255" font-family="monospace" font-size="13" fill="#a1a1aa">Confidence: 0.76 · Calibrated probability distribution</text>
-
-            <!-- Jev Capability 2 -->
-            <rect x="50" y="310" width="740" height="150" rx="12" fill="#27272a" />
-            <text x="80" y="350" font-family="sans-serif" font-size="18" font-weight="700" fill="#ffffff">2. Work Safety Scoring (Score)</text>
-            <text x="80" y="380" font-family="sans-serif" font-size="15" fill="#d4d4d8">Scores labor hazard level against ordered descriptive levels.</text>
-            <text x="80" y="410" font-family="monospace" font-size="14" fill="#38bdf8">Jev Output: work_safety_score=1.38 / 3.0 (caution_required)</text>
-            <text x="80" y="435" font-family="monospace" font-size="13" fill="#a1a1aa">Legend: hazardous (0), caution (1), moderate (2), safe (3)</text>
-
-            <!-- Jev Capability 3 -->
-            <rect x="50" y="490" width="740" height="150" rx="12" fill="#27272a" />
-            <text x="80" y="530" font-family="sans-serif" font-size="18" font-weight="700" fill="#ffffff">3. Culturally Authentic Swahili Selection (Choice)</text>
-            <text x="80" y="560" font-family="sans-serif" font-size="15" fill="#d4d4d8">Picks exact vetted advisory text from a closed domain catalog.</text>
-            <text x="80" y="590" font-family="monospace" font-size="14" fill="#10b981">Jev Output: sw_choice="sw_joto_na_kivuli" (P=0.91)</text>
-            <text x="80" y="615" font-family="sans-serif" font-size="13" fill="#a1a1aa">Zero hallucination risk. Direct operational safety guaranteed.</text>
-          </g>
-        </g>
-      </svg>
+            <div style="display: flex; gap: 16px; font-size: 14px; color: #a1a1aa;">
+              <span>✓ Deployed live on Vercel</span>
+              <span>·</span>
+              <span>✓ Verified with Africa's Talking API</span>
+              <span>·</span>
+              <span>✓ Zero hallucination</span>
+            </div>
+          </div>
+        </div>
+      </div>
     `
   },
   {
     id: 'scene_6_scaling',
     title: 'National Scaling & Regional 3D-PAWS Sensor Mesh',
-    narration: "Hatua is not limited to JKUAT. Every database table is station-keyed, scaling seamlessly to the seventy-five 3D-PAWS stations across Kenya, including KALRO Thika, Garissa, and Wajir. We provide a ready-made sensor trust mesh for Kenya Met, and a dependable calibration ground truth for the Slovenia-Kenya AquaTwin satellite initiative. Hatua turns raw data into trusted intelligence, and intelligence into same-day action. Thank you.",
-    svg: `
-      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1920" height="1080" fill="#09090b" />
-        
-        <text x="160" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#10b981" letter-spacing="2">
-          POST-HACKATHON HORIZON
-        </text>
-        <text x="160" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
-          Kenya 3D-PAWS Regional Sensor Mesh
-        </text>
+    narration: "Hatua does not stop at JKUAT. Our architecture scales to the entire national network of 3D-PAWS stations across Kenya: from KALRO Thika's horticultural hub, to Garissa's arid zone, to Wajir Airport in the pastoralist north. Furthermore, by detecting ground sensor failures early, Hatua provides the ground truth needed to calibrate Slovenia and Kenya's AquaTwin satellite digital twin. Hatua: Trust first. Then act.",
+    html: `
+      <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 48px 64px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #064e3b; border: 1px solid #059669; border-radius: 9999px; padding: 4px 16px; margin-bottom: 12px;">
+              <span style="color: #34d399; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;">REGIONAL SCALING &amp; INSTITUTIONAL IMPACT</span>
+            </div>
+            <h1 style="font-size: 52px; font-weight: 800; color: #ffffff;">National 3D-PAWS Network &amp; AquaTwin</h1>
+          </div>
+          <div style="font-size: 16px; color: #94a3b8; text-align: right;">
+            Juja · Thika · Garissa · Wajir · SPACE-SI Digital Twin
+          </div>
+        </div>
 
-        <!-- Network Table & Partners -->
-        <g transform="translate(160, 280)">
-          <!-- Left Table: 4 Active Stations -->
-          <rect x="0" y="0" width="960" height="680" rx="20" fill="#18181b" stroke="#334155" stroke-width="2" />
-          <text x="40" y="60" font-family="sans-serif" font-size="22" font-weight="700" fill="#ffffff">Station-Keyed Database Ready for 75+ CHORDS Nodes</text>
-          
-          <g transform="translate(40, 100)">
-            <!-- Station 1 -->
-            <rect x="0" y="0" width="880" height="115" rx="12" fill="#27272a" stroke="#10b981" stroke-width="2" />
-            <text x="30" y="42" font-family="sans-serif" font-size="20" font-weight="700" fill="#ffffff">Station 61: JKUAT Main Campus (Conduit@Empathy1)</text>
-            <text x="30" y="75" font-family="sans-serif" font-size="15" fill="#a1a1aa">Kiambu Highlands (1523m) · 37.0145°E, 1.0997°S</text>
-            <text x="30" y="98" font-family="sans-serif" font-size="14" fill="#10b981">Role: Primary Ground Truth · Heat, UV, Rain Onset</text>
+        <div style="display: flex; gap: 40px; flex: 1;">
+          <!-- Left: 4 Regional Stations Mesh -->
+          <div style="flex: 1.2; display: flex; flex-direction: column; gap: 14px; justify-content: center;">
+            <div style="background: #18181b; border: 1px solid #10b981; border-radius: 14px; padding: 18px 22px;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-size: 18px; color: #ffffff;">Station 61: JKUAT Main Campus (Conduit@Empathy)</strong>
+                <span style="font-size: 13px; color: #10b981; font-weight: 700;">PRIMARY GROUND TRUTH</span>
+              </div>
+              <p style="font-size: 14px; color: #a1a1aa; margin-top: 4px;">Kiambu Highlands (1523m) · High heat, extreme UV index, and rain onset monitoring.</p>
+            </div>
 
-            <!-- Station 2 -->
-            <rect x="0" y="135" width="880" height="115" rx="12" fill="#27272a" />
-            <text x="30" y="177" font-family="sans-serif" font-size="20" font-weight="700" fill="#ffffff">Station 10: KALRO Thika Agricultural Station</text>
-            <text x="30" y="210" font-family="sans-serif" font-size="15" fill="#a1a1aa">Central Kenya (1548m) · 37.0700°E, 1.0333°S</text>
-            <text x="30" y="233" font-family="sans-serif" font-size="14" fill="#38bdf8">Role: Peri-Urban Horticultural Pest &amp; Fungal Monitoring</text>
+            <div style="background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 18px 22px;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-size: 18px; color: #ffffff;">Station 10: KALRO Thika Agricultural Station</strong>
+                <span style="font-size: 13px; color: #38bdf8; font-weight: 700;">HORTICULTURAL ZONE</span>
+              </div>
+              <p style="font-size: 14px; color: #a1a1aa; margin-top: 4px;">Central Kenya (1548m) · Peri-urban avocado, tomato, and fungal pest prevention.</p>
+            </div>
 
-            <!-- Station 3 -->
-            <rect x="0" y="270" width="880" height="115" rx="12" fill="#27272a" />
-            <text x="30" y="312" font-family="sans-serif" font-size="20" font-weight="700" fill="#ffffff">Station 15: Garissa Agricultural ASAL Station</text>
-            <text x="30" y="345" font-family="sans-serif" font-size="15" fill="#a1a1aa">North Eastern Lowlands (147m) · 39.6583°E, 0.4532°S</text>
-            <text x="30" y="368" font-family="sans-serif" font-size="14" fill="#f59e0b">Role: Arid Zone Heat Stress &amp; Severe Water Depletion</text>
+            <div style="background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 18px 22px;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-size: 18px; color: #ffffff;">Station 15: Garissa Agricultural ASAL Station</strong>
+                <span style="font-size: 13px; color: #f59e0b; font-weight: 700;">ARID LOWLANDS</span>
+              </div>
+              <p style="font-size: 14px; color: #a1a1aa; margin-top: 4px;">North Eastern Lowlands (147m) · Severe heat stress and drought water depletion warnings.</p>
+            </div>
 
-            <!-- Station 4 -->
-            <rect x="0" y="405" width="880" height="115" rx="12" fill="#27272a" />
-            <text x="30" y="447" font-family="sans-serif" font-size="20" font-weight="700" fill="#ffffff">Station 22: Wajir Airport AWS</text>
-            <text x="30" y="480" font-family="sans-serif" font-size="15" fill="#a1a1aa">ASAL Pastoral Zone (235m) · 40.0917°E, 1.7471°N</text>
-            <text x="30" y="503" font-family="sans-serif" font-size="14" fill="#f59e0b">Role: Pastoralist Extreme Drought &amp; Wind Monitoring</text>
-          </g>
+            <div style="background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 18px 22px;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong style="font-size: 18px; color: #ffffff;">Station 22: Wajir Airport AWS</strong>
+                <span style="font-size: 13px; color: #f59e0b; font-weight: 700;">PASTORALIST ASAL</span>
+              </div>
+              <p style="font-size: 14px; color: #a1a1aa; margin-top: 4px;">Pastoral Zone (235m) · Extreme livestock heat warning and high wind gust alerts.</p>
+            </div>
+          </div>
 
-          <!-- Right Column: Institutional Alignment -->
-          <g transform="translate(1020, 0)">
-            <rect x="0" y="0" width="580" height="680" rx="20" fill="#18181b" stroke="#334155" stroke-width="2" />
-            
-            <text x="40" y="60" font-family="sans-serif" font-size="22" font-weight="700" fill="#ffffff">Strategic JHUB Africa Pathways</text>
+          <!-- Right: Strategic JHUB Africa & AquaTwin Alignment -->
+          <div style="flex: 1.0; display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="background: #18181b; border: 2px solid #334155; border-radius: 18px; padding: 32px; display: flex; flex-direction: column; gap: 20px;">
+              <h3 style="font-size: 26px; font-weight: 800; color: #ffffff;">Strategic Value to JHUB Africa</h3>
+              
+              <div style="border-left: 4px solid #10b981; padding-left: 16px;">
+                <strong style="font-size: 17px; color: #34d399; display: block;">1. AquaTwin River Basin Digital Twin</strong>
+                <span style="font-size: 15px; color: #d4d4d8; line-height: 1.4; display: block; margin-top: 4px;">
+                  Protects the €603K Slovenia-Kenya satellite calibration from feeding on broken physical sensors like dead rain gauge 2.
+                </span>
+              </div>
 
-            <rect x="40" y="100" width="500" height="150" rx="12" fill="#27272a" />
-            <text x="70" y="145" font-family="sans-serif" font-size="18" font-weight="700" fill="#10b981">1. AquaTwin River Basin Twin</text>
-            <text x="70" y="180" font-family="sans-serif" font-size="15" fill="#d4d4d8">Protects €603K Slovenia-Kenya</text>
-            <text x="70" y="205" font-family="sans-serif" font-size="15" fill="#d4d4d8">satellite calibration from hardware faults.</text>
+              <div style="border-left: 4px solid #38bdf8; padding-left: 16px;">
+                <strong style="font-size: 17px; color: #38bdf8; display: block;">2. Real Human &amp; Campus Safety</strong>
+                <span style="font-size: 15px; color: #d4d4d8; line-height: 1.4; display: block; margin-top: 4px;">
+                  Automates OHS compliance for JKUAT estates, clinic staff, and Juja farmers directly via Africa's Talking USSD and SMS.
+                </span>
+              </div>
+            </div>
 
-            <rect x="40" y="280" width="500" height="150" rx="12" fill="#27272a" />
-            <text x="70" y="325" font-family="sans-serif" font-size="18" font-weight="700" fill="#38bdf8">2. JKUAT Campus Estates OHS</text>
-            <text x="70" y="360" font-family="sans-serif" font-size="15" fill="#d4d4d8">Live SMS heat-stress dispatch for</text>
-            <text x="70" y="385" font-family="sans-serif" font-size="15" fill="#d4d4d8">grounds, sports, and clinic crews.</text>
-
-            <rect x="40" y="460" width="500" height="180" rx="12" fill="#1e293b" />
-            <text x="70" y="505" font-family="sans-serif" font-size="20" font-weight="800" fill="#ffffff">SUMMARY: DATA TO IMPACT</text>
-            <text x="70" y="540" font-family="sans-serif" font-size="15" fill="#10b981">✓ Meaningful Conduit data use</text>
-            <text x="70" y="570" font-family="sans-serif" font-size="15" fill="#10b981">✓ Honest hardware autopsy</text>
-            <text x="70" y="600" font-family="sans-serif" font-size="15" fill="#10b981">✓ Real operational decisions</text>
-          </g>
-        </g>
-      </svg>
+            <div style="background: linear-gradient(135deg, #18181b 0%, #064e3b 100%); border: 1px solid #059669; border-radius: 18px; padding: 28px 32px; text-align: center;">
+              <h2 style="font-size: 40px; font-weight: 900; color: #ffffff; letter-spacing: -1px; margin-bottom: 6px;">HATUA</h2>
+              <p style="font-size: 20px; font-weight: 600; color: #34d399; margin-bottom: 12px;">Trust first. Then act.</p>
+              <span style="font-family: monospace; font-size: 18px; color: #a7f3d0;">https://hack-the-weather.vercel.app</span>
+            </div>
+          </div>
+        </div>
+      </div>
     `
   }
 ];
 
 async function generate() {
-  console.log('=== STARTING HATUA PRESENTATION VIDEO GENERATION ===');
+  console.log('=== STARTING HATUA DOCUMENTARY PRESENTATION VIDEO GENERATION ===');
+  console.log('Using real field photos, live web app screenshots, and authentic Kenyan voice.\n');
   
   const videoClips = [];
 
@@ -491,25 +420,26 @@ async function generate() {
     const s = scenes[i];
     console.log(`\n[Scene ${i + 1}/${scenes.length}] ${s.title}`);
 
-    // 1. Render SVG to 1920x1080 PNG via headless Google Chrome
+    // 1. Render Composite HTML Slide to 1920x1080 PNG via headless Google Chrome
     const htmlPath = path.join(SCENES_DIR, `${s.id}.html`);
     const pngPath = path.join(SCENES_DIR, `${s.id}.png`);
-    console.log(` - Rendering 1080p slide: ${pngPath}`);
+    console.log(` - Rendering 1080p composite slide: ${pngPath}`);
+    
     fs.writeFileSync(htmlPath, `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { width: 1920px; height: 1080px; overflow: hidden; background: #09090b; }
-  svg { width: 1920px; height: 1080px; display: block; }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #09090b; color: #f4f4f5; }
 </style>
 </head>
 <body>
-${s.svg.trim()}
+${s.html.trim()}
 </body>
 </html>`);
-    execSync(`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --screenshot="${pngPath}" --window-size=1920,1080 --virtual-time-budget=1000 "file://${htmlPath}" 2>/dev/null`);
+
+    execSync(`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --screenshot="${pngPath}" --window-size=1920,1080 --allow-file-access-from-files "file://${htmlPath}" 2>/dev/null`);
 
     // 2. Synthesize Audio Speech with Jev-selected Natural Kenyan Voice (en-KE-ChilembaNeural)
     const mp3VoicePath = path.join(AUDIO_DIR, `${s.id}.mp3`);
@@ -527,14 +457,13 @@ ${s.svg.trim()}
     // 4. Create MP4 Video Clip for this scene
     const clipPath = path.join(VIDEO_DIR, `${s.id}.mp4`);
     console.log(` - Encoding MP4 video clip with ffmpeg...`);
-    // Add 1 second of freeze buffer at the end of each slide for smooth pacing
     const clipDuration = duration + 1.0;
     execSync(`ffmpeg -y -loop 1 -i "${pngPath}" -i "${wavPath}" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -t ${clipDuration} "${clipPath}" 2>/dev/null`);
 
     videoClips.push(clipPath);
   }
 
-  // 5. Concatenate all clips into final masterpiece
+  // 5. Concatenate all clips into final video
   console.log('\n=== CONCATENATING SCENES INTO FINAL PRESENTATION VIDEO ===');
   const concatListPath = path.join(VIDEO_DIR, 'concat_list.txt');
   const concatContent = videoClips.map(c => `file '${c}'`).join('\n');
@@ -546,9 +475,9 @@ ${s.svg.trim()}
   const finalDuration = execSync(`ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${finalVideoPath}"`).toString().trim();
   const finalSize = fs.statSync(finalVideoPath).size / (1024 * 1024);
 
-  console.log(`\n🎉 SUCCESS! Final Video Generated:`);
+  console.log(`\n🎉 SUCCESS! Documentary Video Generated:`);
   console.log(`Path: ${finalVideoPath}`);
-  console.log(`Duration: ${parseFloat(finalDuration).toFixed(1)}s (${(parseFloat(finalDuration) / 60).toFixed(2)} minutes - Perfect for 3-5 min hackathon rule!)`);
+  console.log(`Duration: ${parseFloat(finalDuration).toFixed(1)}s (${(parseFloat(finalDuration) / 60).toFixed(2)} minutes)`);
   console.log(`Size: ${finalSize.toFixed(2)} MB`);
 }
 
